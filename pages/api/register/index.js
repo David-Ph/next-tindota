@@ -4,7 +4,6 @@ import User from "../../../models/user";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    // Check if name, email or password is provided
     const { name, password } = req.body;
     if (name && password) {
       try {
