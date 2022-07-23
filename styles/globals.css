@@ -13,4 +13,9 @@ a {
 
 * {
   box-sizing: border-box;
+  color: #fff;
+}
+
+body {
+  background-color: rgb(0, 3, 1);
 }

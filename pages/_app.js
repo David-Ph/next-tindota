@@ -1,11 +1,14 @@
 import "../styles/globals.css";
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from "@mui/material/styles";
 import MainTheme from "../styles/MainTheme";
+import MainLayout from "../components/Layout/MainLayout";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={MainTheme}>
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </ThemeProvider>
   );
 }
