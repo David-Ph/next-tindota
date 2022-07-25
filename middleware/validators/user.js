@@ -1,6 +1,6 @@
 import validator from "validator";
 
-export const authValidator = (name, password) => {
+export const userValidator = (name, password) => {
   if (!name || !password) return false;
 
   if (
