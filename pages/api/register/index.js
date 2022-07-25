@@ -1,11 +1,12 @@
 import db from "../../../middleware/db";
 import { sign } from "../../../middleware/auth";
 import User from "../../../models/user";
+import { authValidator } from "../../../middleware/validators/user";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const { name, password } = req.body;
-    if (name && password) {
+    if (authValidator(name, password)) {
       try {
         // Hash password to store it in DB
         const passwordhash = await sign(password);
@@ -21,10 +22,10 @@ const handler = async (req, res) => {
       }
     }
 
-    return res.status(422).send("data_incomplete");
+    return res.status(400).send("Invalid Input");
   }
 
-  return res.status(422).send("req_method_not_supported");
+  return res.status(404).send("Method not found");
 };
 
 export default db(handler);
