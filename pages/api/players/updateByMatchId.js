@@ -1,6 +1,7 @@
 import db from "../../../middleware/db";
 import Match from "../../../models/match";
 import Player from "../../../models/player";
+import { updatePlayerMmr } from "../../../util/PlayerService";
 import { matchValidator } from "../../../middleware/validators/match";
 import { GET_MATCH_DETAIL_API_URL } from "../../../util/constants";
 
@@ -10,27 +11,6 @@ const getMatchDetail = async (matchId) => {
       "Content-Type": "application/json",
     },
   });
-};
-
-const updatePlayerMmr = async (accountId, win) => {
-  if (!accountId) return;
-
-  let findPlayer = await Player.findOne({
-    accountId: accountId,
-  });
-
-  if (!findPlayer) return;
-
-  console.log("FOUND A PLAYER");
-  console.log(findPlayer);
-
-  if (win) {
-    findPlayer.inhouseMmr += 50;
-    await findPlayer.save();
-  } else {
-    findPlayer.inhouseMmr -= 50;
-    await findPlayer.save();
-  }
 };
 
 const handler = async (req, res) => {
@@ -60,10 +40,12 @@ const handler = async (req, res) => {
       // Get Winning Team
       const winningTeam = matchData.radiant_win;
 
+      // Update Radiant players
       for (let i = 0; i < 5; i++) {
         updatePlayerMmr(playersList[i].account_id, winningTeam);
       }
 
+      // Update Dire players
       for (let i = 5; i < 10; i++) {
         updatePlayerMmr(playersList[i].account_id, !winningTeam);
       }
