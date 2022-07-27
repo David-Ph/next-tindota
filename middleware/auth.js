@@ -16,3 +16,17 @@ export const getToken = (data) => {
     expiresIn: "60d",
   });
 };
+
+export const authenticated = (handler) => async (req, res) => {
+  jwt.verify(
+    req.headers.authorization,
+    process.env.JWT_TOKEN,
+    async function (err, decoded) {
+      if (!err && decoded) {
+        return await handler(req, res);
+      }
+
+      res.status(401).json({ message: "Not Authorized" });
+    }
+  );
+};

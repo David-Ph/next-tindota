@@ -1,18 +1,19 @@
 import db from "../../../middleware/db";
 import Player from "../../../models/player";
+import { authenticated } from "../../../middleware/auth";
 
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
       const players = await Player.find();
-      // Create new user
-      return res.status(200).send(players);
+
+      return res.status(200).json(players);
     } catch (error) {
-      return res.status(500).send(error.message);
+      return res.status(500).json({ message: error.message });
     }
   }
 
-  return res.status(404).send("Method not found");
+  return res.status(404).json({ message: "Method not found" });
 };
 
-export default db(handler);
+export default authenticated(db(handler));
