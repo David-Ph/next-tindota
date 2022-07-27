@@ -30,6 +30,10 @@ const handler = async (req, res) => {
         return res.status(200).send("Match ID has been submitted");
       }
 
+      const newMatch = new Match({
+        matchId: matchId,
+      });
+      await newMatch.save();
       // // Get Match Data
       const matchDetail = await getMatchDetail(matchId);
       const matchData = await matchDetail.json();
