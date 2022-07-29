@@ -1,9 +1,9 @@
 import db from "../../../middleware/db";
 import Match from "../../../models/match";
-import Player from "../../../models/player";
 import { updatePlayerMmr } from "../../../util/PlayerService";
 import { matchValidator } from "../../../middleware/validators/match";
 import { GET_MATCH_DETAIL_API_URL } from "../../../util/constants";
+import { authenticated } from "../../../middleware/auth";
 
 const getMatchDetail = async (matchId) => {
   return await fetch(`${GET_MATCH_DETAIL_API_URL}/${matchId}`, {
@@ -63,4 +63,4 @@ const handler = async (req, res) => {
   return res.status(404).send("Method not found");
 };
 
-export default db(handler);
+export default authenticated(db(handler));

@@ -1,4 +1,5 @@
 import db from "../../../middleware/db";
+import { authenticated } from "../../../middleware/auth";
 import Player from "../../../models/player";
 import { playerValidator } from "../../../middleware/validators/player";
 
@@ -29,4 +30,4 @@ const handler = async (req, res) => {
   return res.status(404).send("Method not found");
 };
 
-export default db(handler);
+export default authenticated(db(handler));
