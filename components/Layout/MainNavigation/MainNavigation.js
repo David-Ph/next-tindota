@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import styles from "./index.module.css";
+import styles from "./MainNavigation.module.css";
+import NavigationItem from "../../NavigationItem/NavigationItem";
 
 function MainNavigation() {
   return (
@@ -21,13 +21,13 @@ function MainNavigation() {
       <Box component={"nav"}>
         <ul>
           <li>
-            <Link href="/">Balancer</Link>
+            <NavigationItem href="/">Balancer</NavigationItem>
           </li>
           <li>
-            <Link href="/players">Players</Link>
+            <NavigationItem href="/players">Players</NavigationItem>
           </li>
           <li>
-            <Link href="/login">Login</Link>
+            <NavigationItem href="/login">Login</NavigationItem>
           </li>
         </ul>
       </Box>

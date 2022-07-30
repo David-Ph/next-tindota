@@ -17,5 +17,5 @@ a {
 }
 
 body {
-  background-color: rgb(0, 3, 1);
+  background-color: rgb(0, 3, 1) !important;
 }
