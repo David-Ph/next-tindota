@@ -7,6 +7,7 @@ function SectionContainer(props) {
       sx={{ backgroundColor: "tindota.primaryBg" }}
       component={"div"}
       className={styles.root}
+      {...props}
     >
       {props.children}
     </Box>

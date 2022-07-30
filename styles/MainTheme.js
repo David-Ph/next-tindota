@@ -13,6 +13,41 @@ const palette = {
   },
 };
 
+const components = {
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: palette.tindota.mainText,
+          },
+          "&:hover fieldset": {
+            borderColor: palette.tindota.mainText,
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: palette.tindota.mainText,
+          },
+        },
+      },
+    },
+  },
+  MuiInputBase: {
+    styleOverrides: {
+      root: {
+        color: palette.tindota.mainText,
+      },
+    },
+  },
+  MuiFormLabel: {
+    styleOverrides: {
+      root: {
+        color: palette.tindota.mainText,
+      },
+    },
+  },
+};
+
 export default createTheme({
   palette: palette,
+  components: components,
 });

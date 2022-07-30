@@ -1,0 +1,8 @@
+.root {
+  max-width: 728px;
+  margin: 0 auto;
+}
+
+.inputContainer div:first-of-type {
+  margin-bottom: 0.5em;
+}
