@@ -4,12 +4,9 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import styles from "./index.module.css";
 import SectionContainer from "../../components/UI/SectionContainer/SectionContainer";
+import { getCsrfToken } from "next-auth/react";
 
-export default function index() {
-  const onLogin = (e) => {
-    e.preventDefault();
-    console.log("Hello");
-  };
+export default function index({ csrfToken }) {
   return (
     <Box className={styles.root}>
       <SectionContainer mt={2}>
@@ -17,17 +14,25 @@ export default function index() {
           Sign In
         </Typography>
         <Box
-          onSubmit={onLogin}
           className={styles.inputContainer}
           component="form"
           noValidate
           autoComplete="off"
+          action="/api/auth/callback/credentials"
+          method="post"
           mt={2}
           mb={2}
         >
-          <TextField fullWidth label="Email" variant="outlined" />
+          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+          <TextField
+            name="username"
+            fullWidth
+            label="Name"
+            variant="outlined"
+          />
           <TextField
             fullWidth
+            name="password"
             label="Password"
             type="password"
             variant="outlined"
@@ -39,4 +44,12 @@ export default function index() {
       </SectionContainer>
     </Box>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
 }
