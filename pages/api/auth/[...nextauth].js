@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -17,12 +17,10 @@ export default NextAuth({
         },
       },
       async authorize(credentials) {
-        console.log(credentials.username === process.env.ADMIN_USERNAME);
         if (
           credentials.username == process.env.ADMIN_USERNAME &&
           credentials.password == process.env.ADMIN_PASSWORD
         ) {
-          console.log("yes");
           return {
             id: 1,
             name: process.env.ADMIN_USERNAME,
@@ -57,4 +55,6 @@ export default NextAuth({
   // pages: {
   //   signIn: "/login",
   // },
-});
+};
+
+export default NextAuth(authOptions);

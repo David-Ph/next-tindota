@@ -1,32 +1,14 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
-const saltRounds = 10;
-
-export const sign = (password) => {
-  return bcrypt.hashSync(password, saltRounds);
-};
-
-export const checkPassword = (inputPassword, dbPassword) => {
-  return bcrypt.compareSync(inputPassword, dbPassword);
-};
-
-export const getToken = (data) => {
-  return jwt.sign(data, process.env.JWT_TOKEN, {
-    expiresIn: "60d",
-  });
-};
+import { authOptions } from "../pages/api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
 
 export const authenticated = (handler) => async (req, res) => {
-  jwt.verify(
-    req.headers.authorization,
-    process.env.JWT_TOKEN,
-    async function (err, decoded) {
-      if (!err && decoded) {
-        return await handler(req, res);
-      }
+  const session = await unstable_getServerSession(req, res, authOptions);
 
-      res.status(401).json({ message: "Not Authorized" });
-    }
-  );
+  if (session) {
+    // Signed in
+    return await handler(req, res);
+  } else {
+    // Not Signed in
+    return res.status(401).json({ message: "Not Authorized" });
+  }
 };
