@@ -10,4 +10,6 @@ const connectDB = (handler) => async (req, res) => {
   return handler(req, res);
 };
 
+export const connectMongo = async () => mongoose.connect(process.env.MONGO_URI);
+
 export default connectDB;

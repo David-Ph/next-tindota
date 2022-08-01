@@ -62,6 +62,6 @@ const playerSchema = new Schema({
   },
 });
 
-const Player = models.Player || model("Player", playerSchema);
+const Player = models?.Player || model("Player", playerSchema);
 
 export default Player;
