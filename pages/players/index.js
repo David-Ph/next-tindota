@@ -74,7 +74,13 @@ export default function index({ players }) {
                     <TableCell>{row.totalGames}</TableCell>
                     <TableCell>{row.totalWins}</TableCell>
                     <TableCell>{row.totalLoses}</TableCell>
-                    <TableCell>0%</TableCell>
+                    <TableCell>
+                      {`${parseInt(
+                        (row.totalWins / row.totalGames) * 100,
+                        10
+                      )}`}
+                      %
+                    </TableCell>
                     <TableCell>{row.inhouseMmr}</TableCell>
                   </TableRow>
                 ))}
