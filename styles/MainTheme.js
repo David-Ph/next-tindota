@@ -45,6 +45,16 @@ const components = {
       },
     },
   },
+  MuiTableContainer: {
+    styleOverrides: {
+      root: {
+        backgroundColor: palette.tindota.secondaryBg,
+        "& 	.MuiTableCell-root": {
+          color: palette.tindota.titleText,
+        },
+      },
+    },
+  },
 };
 
 export default createTheme({
