@@ -5,7 +5,9 @@ import { authenticated } from "../../../middleware/auth";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
-      const players = await Player.find();
+      const players = await Player.find().sort({
+        name: "desc",
+      });
 
       return res.status(200).json(players);
     } catch (error) {
