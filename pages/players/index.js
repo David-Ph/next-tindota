@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -17,9 +18,22 @@ import Paper from "@mui/material/Paper";
 import AddNewPlayerModal from "../../components/Players/AddNewPlayerModal";
 
 export default function index({ players }) {
+  const { status } = useSession();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <Typography mt={8} variant={"h4"} align="center">
+        Access Denied
+      </Typography>
+    );
+  }
 
   return (
     <Box className={styles.root}>
