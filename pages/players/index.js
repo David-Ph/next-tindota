@@ -1,15 +1,12 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import SectionContainer from "../../components/UI/SectionContainer/SectionContainer";
 import Player from "../../models/player";
 import { connectMongo } from "../../middleware/db";
-import { useRouter } from "next/router";
 import styles from "./index.module.css";
-import Divider from "@mui/material/Divider";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,42 +14,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import AddNewPlayerModal from "../../components/Players/AddNewPlayerModal";
 
 export default function index({ players }) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // Add Player Ref
-  const newFormRef = useRef();
-  const newNameRef = useRef();
-  const newAccountIdRef = useRef();
-  const newRealMmrRef = useRef();
-
-  const onAddNewPlayer = async (event) => {
-    event.preventDefault();
-
-    const name = newNameRef.current.value;
-    const accountId = newAccountIdRef.current.value;
-    const realMmr = newRealMmrRef.current.value;
-
-    const playerData = {
-      name,
-      accountId,
-      realMmr,
-    };
-
-    await fetch("/api/players/create", {
-      method: "POST",
-      body: JSON.stringify(playerData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    newFormRef.current.reset();
-    router.push("/players");
-  };
 
   return (
     <Box className={styles.root}>
@@ -64,63 +31,7 @@ export default function index({ players }) {
           <Button onClick={handleOpen} variant="outlined" size="medium">
             Add New Player
           </Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box className="modalContainer">
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Add New Player
-              </Typography>
-              <Divider />
-              <Box
-                className={styles.inputContainer}
-                component="form"
-                noValidate
-                ref={newFormRef}
-                autoComplete="off"
-                onSubmit={onAddNewPlayer}
-                id="modal-modal-description"
-              >
-                <TextField
-                  name="name"
-                  fullWidth
-                  label="Player Name"
-                  variant="outlined"
-                  margin="normal"
-                  inputRef={newNameRef}
-                />
-                <TextField
-                  fullWidth
-                  name="accountId"
-                  label="Player Account Id"
-                  variant="outlined"
-                  margin="normal"
-                  inputRef={newAccountIdRef}
-                />
-                <TextField
-                  fullWidth
-                  name="realMmr"
-                  label="Player MMR"
-                  variant="outlined"
-                  margin="normal"
-                  type="number"
-                  inputRef={newRealMmrRef}
-                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                />
-                <Button
-                  sx={{ marginTop: "0.5rem" }}
-                  type="submit"
-                  color="info"
-                  variant="contained"
-                >
-                  Add
-                </Button>
-              </Box>
-            </Box>
-          </Modal>
+          <AddNewPlayerModal open={open} handleClose={handleClose} />
         </Box>
         <Box className={styles.updateContainer} mt={2} mb={2}></Box>
         <Box mt={2} mb={2}>
@@ -191,9 +102,11 @@ export default function index({ players }) {
 
 export async function getServerSideProps() {
   await connectMongo();
-  const players = await Player.find().sort({
-    name: 1,
-  });
+  const players = await Player.find()
+    .collation({ locale: "en", strength: 1 })
+    .sort({
+      name: 1,
+    });
 
   return {
     props: {
