@@ -15,26 +15,6 @@ function PlayersTable({ players }) {
   const handleOpen = (data) => setEditModal({ show: true, data: data });
   const handleClose = () => setEditModal({ ...editModal, show: false });
 
-  const onEdit = (event) => {
-    const row = event.target.parentElement.parentElement;
-
-    const playerData = {
-      accountId: row.querySelector(".accountId").textContent,
-      name: row.querySelector(".name").textContent,
-      calibrationGames: row.querySelector(".calibrationGames").textContent,
-      calibrationWins: row.querySelector(".calibrationWins").textContent,
-      calibrationLoses: row.querySelector(".calibrationLoses").textContent,
-      calibrationMmr: row.querySelector(".calibrationMmr").textContent,
-      realMmr: row.querySelector(".realMmr").textContent,
-      totalGames: row.querySelector(".totalGames").textContent,
-      totalWins: row.querySelector(".totalWins").textContent,
-      totalLoses: row.querySelector(".totalLoses").textContent,
-      inhouseMmr: row.querySelector(".inhouseMmr").textContent,
-    };
-
-    handleOpen(playerData);
-  };
-
   return (
     <TableContainer className={styles.tableContainer} component={Paper}>
       <Table aria-label="simple table">
@@ -62,27 +42,19 @@ function PlayersTable({ players }) {
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row" className={"accountId"}>
+              <TableCell component="th" scope="row">
                 {row.accountId}
               </TableCell>
-              <TableCell className={"name"}>{row.name}</TableCell>
-              <TableCell className={"calibrationGames"}>
-                {row.calibrationGames}
-              </TableCell>
-              <TableCell className={"calibrationWins"}>
-                {row.calibrationWins}
-              </TableCell>
-              <TableCell className={"calibrationLoses"}>
-                {row.calibrationLoses}
-              </TableCell>
-              <TableCell className={"calibrationMmr"}>
-                {row.calibrationMmr}
-              </TableCell>
-              <TableCell className={"realMmr"}>{row.realMmr}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.calibrationGames}</TableCell>
+              <TableCell>{row.calibrationWins}</TableCell>
+              <TableCell>{row.calibrationLoses}</TableCell>
+              <TableCell>{row.calibrationMmr}</TableCell>
+              <TableCell>{row.realMmr}</TableCell>
 
-              <TableCell className={"totalGames"}>{row.totalGames}</TableCell>
-              <TableCell className={"totalWins"}>{row.totalWins}</TableCell>
-              <TableCell className={"totalLoses"}>{row.totalLoses}</TableCell>
+              <TableCell>{row.totalGames}</TableCell>
+              <TableCell>{row.totalWins}</TableCell>
+              <TableCell>{row.totalLoses}</TableCell>
               <TableCell>
                 {`${parseInt(
                   (row.totalWins / (row.totalGames ? row.totalGames : 1)) * 100,
@@ -90,21 +62,25 @@ function PlayersTable({ players }) {
                 )}`}
                 %
               </TableCell>
-              <TableCell className={"inhouseMmr"}>{row.inhouseMmr}</TableCell>
+              <TableCell>{row.inhouseMmr}</TableCell>
               <TableCell>
-                <Button onClick={onEdit} variant="text" size="small">
+                <Button
+                  onClick={() => handleOpen(row)}
+                  variant="text"
+                  size="small"
+                >
                   Edit
                 </Button>
-                <EditPlayerModal
-                  open={editModal.show}
-                  data={editModal.data}
-                  handleClose={handleClose}
-                />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <EditPlayerModal
+        open={editModal.show}
+        data={editModal.data}
+        handleClose={handleClose}
+      />
     </TableContainer>
   );
 }
