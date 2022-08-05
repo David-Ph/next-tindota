@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import EditPlayerModal from "./EditPlayerModal";
+import styles from "./PlayersTable.module.css";
 
 function PlayersTable({ players }) {
   const [editModal, setEditModal] = useState({ show: false, data: null });
@@ -35,7 +36,7 @@ function PlayersTable({ players }) {
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className={styles.tableContainer} component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>

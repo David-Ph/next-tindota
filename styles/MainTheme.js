@@ -59,9 +59,11 @@ const components = {
   MuiTableContainer: {
     styleOverrides: {
       root: {
-        backgroundColor: palette.tindota.secondaryBg,
-        "& 	.MuiTableCell-root": {
+        "&	.MuiTableCell-root": {
+          backgroundColor: palette.tindota.secondaryBg,
           color: palette.tindota.titleText,
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
         },
       },
     },

@@ -9,6 +9,7 @@ import { connectMongo } from "../../middleware/db";
 import styles from "./index.module.css";
 import AddNewPlayerModal from "../../components/Players/AddNewPlayerModal";
 import PlayersTable from "../../components/Players/PlayersTable";
+import UpdateByMatchId from "../../components/Players/UpdateByMatchId";
 
 export default function index({ players }) {
   const { status } = useSession();
@@ -40,7 +41,9 @@ export default function index({ players }) {
           </Button>
           <AddNewPlayerModal open={open} handleClose={handleClose} />
         </Box>
-        <Box className={styles.updateContainer} mt={2} mb={2}></Box>
+        <Box className={styles.updateContainer} mt={2} mb={2}>
+          <UpdateByMatchId />
+        </Box>
         <Box mt={2} mb={2}>
           <PlayersTable players={players} />
         </Box>
