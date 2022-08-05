@@ -28,6 +28,9 @@ const components = {
             borderColor: palette.tindota.mainText,
           },
         },
+        "&.Mui-disabled": {
+          color: palette.tindota.mainText,
+        },
       },
     },
   },
@@ -36,12 +39,20 @@ const components = {
       root: {
         color: palette.tindota.mainText,
       },
+      input: {
+        "&.Mui-disabled": {
+          WebkitTextFillColor: palette.tindota.titleText,
+        },
+      },
     },
   },
   MuiFormLabel: {
     styleOverrides: {
       root: {
         color: palette.tindota.mainText,
+        "&.Mui-disabled": {
+          color: palette.tindota.mainText,
+        },
       },
     },
   },

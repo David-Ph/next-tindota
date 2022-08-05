@@ -5,6 +5,12 @@ import Player from "../../../models/player";
 const handler = async (req, res) => {
   if (req.method === "PUT") {
     try {
+      if (req.body.accountId) {
+        return res
+          .status(403)
+          .json({ message: "Not Allowed to change account id" });
+      }
+
       const { accountId } = req.query;
       const findPlayer = await Player.findOneAndUpdate(
         { accountId: accountId },
