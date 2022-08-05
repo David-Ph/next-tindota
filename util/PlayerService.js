@@ -7,14 +7,18 @@ export const updatePlayerMmr = async (accountId, win) => {
     accountId: accountId,
   });
 
-  if (!findPlayer) return;
+  if (!findPlayer)
+    return {
+      accountId: accountId,
+      player: false,
+    };
 
   if (win) {
     // Update players relevent stats
     findPlayer.totalGames++;
     findPlayer.totalWins++;
 
-    if (findPlayer.isCalibrated) {
+    if (findPlayer.isCalibrated || findPlayer.calibrationGames >= 10) {
       findPlayer.inhouseMmr += 50;
     } else {
       findPlayer.calibrationGames++;
@@ -32,7 +36,7 @@ export const updatePlayerMmr = async (accountId, win) => {
     findPlayer.totalGames++;
     findPlayer.totalLoses++;
 
-    if (findPlayer.isCalibrated) {
+    if (findPlayer.isCalibrated || findPlayer.calibrationGames >= 10) {
       findPlayer.inhouseMmr -= 50;
     } else {
       findPlayer.calibrationGames++;
@@ -46,4 +50,9 @@ export const updatePlayerMmr = async (accountId, win) => {
 
     await findPlayer.save();
   }
+
+  return {
+    player: findPlayer,
+    accountId: accountId,
+  };
 };

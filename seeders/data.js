@@ -598,7 +598,7 @@ const players = [
     inhouseMmr: 4370,
   },
   {
-    accountId: "189898744",
+    accountId: "189897844",
     name: "Minuano",
     calibrationGames: 10,
     calibrationWins: 5,
@@ -1170,7 +1170,7 @@ const players = [
     inhouseMmr: 3290,
   },
   {
-    accountId: " 908671255",
+    accountId: "908671255",
     name: "Quinty",
     calibrationGames: 4,
     calibrationWins: 3,

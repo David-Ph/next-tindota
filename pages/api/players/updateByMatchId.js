@@ -27,7 +27,7 @@ const handler = async (req, res) => {
       });
 
       if (findExistingMatch) {
-        return res.status(200).send("Match ID has been submitted");
+        return res.status(400).json({ message: "Match ID has been submitted" });
       }
 
       const newMatch = new Match({
@@ -38,23 +38,52 @@ const handler = async (req, res) => {
       const matchDetail = await getMatchDetail(matchId);
       const matchData = await matchDetail.json();
 
+      if (matchData.error) {
+        return res.status(400).json({ message: "Match Not Found" });
+      }
+
       // Get Playes List
       const playersList = matchData.players;
 
       // Get Winning Team
       const winningTeam = matchData.radiant_win;
+      const updatedPlayers = [];
+      const failedToUpdatePlayers = [];
 
       // Update Radiant players
       for (let i = 0; i < 5; i++) {
-        updatePlayerMmr(playersList[i].account_id, winningTeam);
+        const response = await updatePlayerMmr(
+          playersList[i].account_id,
+          winningTeam
+        );
+
+        if (response.player) {
+          updatedPlayers.push(response.player.name);
+        } else {
+          failedToUpdatePlayers.push(response.accountId);
+        }
       }
 
       // Update Dire players
       for (let i = 5; i < 10; i++) {
-        updatePlayerMmr(playersList[i].account_id, !winningTeam);
+        const response = await updatePlayerMmr(
+          playersList[i].account_id,
+          !winningTeam
+        );
+        if (response.player) {
+          updatedPlayers.push(response.player.name);
+        } else {
+          failedToUpdatePlayers.push(response.accountId);
+        }
       }
 
-      return res.status(200).send({ message: "OK!" });
+      return res
+        .status(200)
+        .send({
+          message: "OK!",
+          updatedPlayers: updatedPlayers,
+          failedToUpdate: failedToUpdatePlayers,
+        });
     } catch (error) {
       return res.status(500).send(error.message);
     }
