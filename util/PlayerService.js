@@ -1,4 +1,9 @@
 import Player from "../models/player";
+import {
+  CALIBRATION_GAMES_TOTAL,
+  CALIBRATION_MMR_CHANGES,
+  NORMAL_MMR_CHANGES,
+} from "./constants";
 
 export const updatePlayerMmr = async (accountId, win) => {
   if (!accountId) return;
@@ -18,16 +23,19 @@ export const updatePlayerMmr = async (accountId, win) => {
     findPlayer.totalGames++;
     findPlayer.totalWins++;
 
-    if (findPlayer.isCalibrated || findPlayer.calibrationGames >= 10) {
-      findPlayer.inhouseMmr += 50;
+    if (
+      findPlayer.isCalibrated ||
+      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
+    ) {
+      findPlayer.inhouseMmr += NORMAL_MMR_CHANGES;
     } else {
       findPlayer.calibrationGames++;
       findPlayer.calibrationWins++;
-      findPlayer.calibrationMmr += 200;
-      findPlayer.inhouseMmr += 200;
+      findPlayer.calibrationMmr += CALIBRATION_MMR_CHANGES;
+      findPlayer.inhouseMmr += CALIBRATION_MMR_CHANGES;
 
       findPlayer.isCalibrated =
-        findPlayer.calibrationGames === 10 ? true : false;
+        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
     }
 
     await findPlayer.save();
@@ -36,16 +44,19 @@ export const updatePlayerMmr = async (accountId, win) => {
     findPlayer.totalGames++;
     findPlayer.totalLoses++;
 
-    if (findPlayer.isCalibrated || findPlayer.calibrationGames >= 10) {
-      findPlayer.inhouseMmr -= 50;
+    if (
+      findPlayer.isCalibrated ||
+      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
+    ) {
+      findPlayer.inhouseMmr -= NORMAL_MMR_CHANGES;
     } else {
       findPlayer.calibrationGames++;
       findPlayer.calibrationLoses++;
-      findPlayer.calibrationMmr -= 200;
-      findPlayer.inhouseMmr -= 200;
+      findPlayer.calibrationMmr -= CALIBRATION_MMR_CHANGES;
+      findPlayer.inhouseMmr -= CALIBRATION_MMR_CHANGES;
 
       findPlayer.isCalibrated =
-        findPlayer.calibrationGames === 10 ? true : false;
+        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
     }
 
     await findPlayer.save();

@@ -9,11 +9,44 @@ import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import EditPlayerModal from "./EditPlayerModal";
 import styles from "./PlayersTable.module.css";
+import _ from "lodash";
 
 function PlayersTable({ players }) {
   const [editModal, setEditModal] = useState({ show: false, data: null });
+  const [playersListing, setPlayersListing] = useState(players);
+  const [sortBy, setSortBy] = useState("desc");
   const handleOpen = (data) => setEditModal({ show: true, data: data });
   const handleClose = () => setEditModal({ ...editModal, show: false });
+
+  const onSortCol = (property) => {
+    if (property === "winrate") {
+      const sortedPlayer = players.sort((player, nextPlayer) => {
+        const playerWinrate = parseInt(
+          (player.totalWins / (player.totalGames ? player.totalGames : 1)) *
+            100,
+          10
+        );
+        const nextPlayerWinrate = parseInt(
+          (nextPlayer.totalWins /
+            (nextPlayer.totalGames ? nextPlayer.totalGames : 1)) *
+            100,
+          10
+        );
+
+        return sortBy === "asc"
+          ? playerWinrate - nextPlayerWinrate
+          : nextPlayerWinrate - playerWinrate;
+      });
+
+      setPlayersListing(sortedPlayer);
+      setSortBy(sortBy === "desc" ? "asc" : "desc");
+      return;
+    }
+
+    const sortedUsers = _.orderBy(playersListing, property, sortBy);
+    setPlayersListing(sortedUsers);
+    setSortBy(sortBy === "desc" ? "asc" : "desc");
+  };
 
   return (
     <TableContainer className={styles.tableContainer} component={Paper}>
@@ -21,23 +54,39 @@ function PlayersTable({ players }) {
         <TableHead>
           <TableRow>
             <TableCell>Account ID</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Calib. Games</TableCell>
-            <TableCell>Calib. Wins</TableCell>
-            <TableCell>Calib. Loses</TableCell>
-            <TableCell>Calib. MMR</TableCell>
-            <TableCell>Real MMR</TableCell>
+            <TableCell onClick={() => onSortCol("name")}>Name</TableCell>
+            <TableCell onClick={() => onSortCol("calibrationGames")}>
+              Calib. Games
+            </TableCell>
+            <TableCell onClick={() => onSortCol("calibrationWins")}>
+              Calib. Wins
+            </TableCell>
+            <TableCell onClick={() => onSortCol("calibrationLoses")}>
+              Calib. Loses
+            </TableCell>
+            <TableCell onClick={() => onSortCol("calibrationMmr")}>
+              Calib. MMR
+            </TableCell>
+            <TableCell onClick={() => onSortCol("realMmr")}>Real MMR</TableCell>
 
-            <TableCell>Total Games</TableCell>
-            <TableCell>Total Wins</TableCell>
-            <TableCell>Total Loses</TableCell>
-            <TableCell>Winrate</TableCell>
-            <TableCell>Inhouse MMR</TableCell>
+            <TableCell onClick={() => onSortCol("totalGames")}>
+              Total Games
+            </TableCell>
+            <TableCell onClick={() => onSortCol("totalWins")}>
+              Total Wins
+            </TableCell>
+            <TableCell onClick={() => onSortCol("totalLoses")}>
+              Total Loses
+            </TableCell>
+            <TableCell onClick={() => onSortCol("winrate")}>Winrate</TableCell>
+            <TableCell onClick={() => onSortCol("inhouseMmr")}>
+              Inhouse MMR
+            </TableCell>
             <TableCell align="center">Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {players.map((row) => (
+          {playersListing.map((row) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
