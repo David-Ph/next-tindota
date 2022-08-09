@@ -27,7 +27,7 @@ export default function index({ players }) {
       <SectionContainer mt={2} mb={2}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
-            <Box>
+            <Box display="flex" gap={2} flexDirection="column">
               <AddPlayerFromList players={players} />
               <AddCustomPlayer />
             </Box>

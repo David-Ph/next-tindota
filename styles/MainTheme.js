@@ -54,7 +54,7 @@ const components = {
           color: palette.tindota.mainText,
         },
       },
-    },
+    }, // .MuiAutocomplete-popper
   },
   MuiTableContainer: {
     styleOverrides: {
@@ -88,6 +88,13 @@ const components = {
           padding: "1rem",
           p: 4,
         },
+      },
+    },
+  },
+  MuiAutocomplete: {
+    styleOverrides: {
+      paper: {
+        backgroundColor: palette.tindota.tertiaryBg,
       },
     },
   },
