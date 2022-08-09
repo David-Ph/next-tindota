@@ -15,3 +15,7 @@
 .deleteBtn:hover {
   cursor: pointer;
 }
+
+.copyBtn {
+  cursor: pointer;
+}

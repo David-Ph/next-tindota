@@ -6,6 +6,7 @@ import _ from "lodash";
 import { NORMAL_BALANCER, TRIPLE_HIGH, ONE_HIGH } from "../../util/constants";
 import { copyToClipBoard } from "../../util/CommonService";
 import { getNormalShuffles } from "../../util/TeamService";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 function TeamTable({ type = "normal", title = "", description = "" }) {
   const { playerListing } = useSelector((state) => ({
@@ -14,6 +15,14 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
 
   const getAvgMmr = (team) => {
     return parseInt(team.reduce((a, b) => a + b.mmr, 0) / team.length || 0, 10);
+  };
+
+  const onCopy = (team = [], initialText = "") => {
+    let copyString = initialText;
+    const avgMmr = getAvgMmr(team);
+    team.forEach((player) => (copyString += `${player.name}, `));
+    copyString += `AVG MMR: ${avgMmr}`;
+    copyToClipBoard(copyString);
   };
 
   let firstTeam = [];
@@ -156,10 +165,22 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             <td>{secondTeam[4]?.mmr}</td>
           </tr>
           <tr>
-            <td></td>
+            <td
+              onClick={() => onCopy(firstTeam, "Team 1: ")}
+              className={styles.copyBtn}
+              align="center"
+            >
+              <ContentCopyIcon color="info" fontSize="small" />
+            </td>
             <td>Average</td>
             <td>{getAvgMmr(firstTeam)}</td>
-            <td></td>
+            <td
+              onClick={() => onCopy(secondTeam, "Team 2: ")}
+              className={styles.copyBtn}
+              align="center"
+            >
+              <ContentCopyIcon color="info" fontSize="small" />
+            </td>
             <td>Average</td>
             <td>{getAvgMmr(secondTeam)}</td>
           </tr>
