@@ -25,6 +25,7 @@ function AddPlayerFromList({ players }) {
   const [error, setError] = useState({ show: false, message: "" });
   const formRef = useRef();
   const nameRef = useRef();
+  const playerListing = useSelector((state) => state.players.players);
   const playersDisplayLabel = getDisplayLabels(players);
 
   const onAddNewPlayer = (e) => {
@@ -37,6 +38,11 @@ function AddPlayerFromList({ players }) {
 
     if (!findPlayer) {
       setError({ show: true, message: "Invalid Player" });
+      return;
+    }
+
+    if (playerListing.length >= 10) {
+      setError({ show: true, message: "Max player is 10!" });
       return;
     }
 

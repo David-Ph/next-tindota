@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../store/players/players-slice";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
@@ -13,12 +13,18 @@ function AddCustomPlayer() {
   const formRef = useRef();
   const nameRef = useRef();
   const mmrRef = useRef();
+  const playerListing = useSelector((state) => state.players.players);
 
   const onAddNewPlayer = (e) => {
     e.preventDefault();
 
     if (!nameRef.current.value || !mmrRef.current.value) {
       setError({ show: true, message: "Invalid Name or MMR" });
+      return;
+    }
+
+    if (playerListing.length >= 10) {
+      setError({ show: true, message: "Max player is 10!" });
       return;
     }
 
