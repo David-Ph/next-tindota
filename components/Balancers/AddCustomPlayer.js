@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { playerActions } from "../../store/players/players-slice";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";

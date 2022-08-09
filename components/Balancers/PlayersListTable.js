@@ -1,0 +1,155 @@
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import styles from "./PlayersListTable.module.css";
+import _ from "lodash";
+import ClearIcon from "@mui/icons-material/Clear";
+
+function PlayersListTable() {
+  const dispatch = useDispatch();
+  const playerListing = useSelector((state) => state.players.players);
+
+  console.log(playerListing);
+
+  const onDeletePlayer = () => {};
+
+  return (
+    <Box>
+      <Typography mb={2} id="modal-modal-title" variant="h6" component="h6">
+        Players Listing
+      </Typography>
+      <table className={styles.playersTable}>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>MMR</th>
+            <th></th>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>MMR</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>{playerListing[0]?.name}</td>
+            <td>{playerListing[0]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+            <td>2</td>
+            <td>{playerListing[1]?.name}</td>
+            <td>{playerListing[1]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>{playerListing[2]?.name}</td>
+            <td>{playerListing[2]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+            <td>4</td>
+            <td>{playerListing[3]?.name}</td>
+            <td>{playerListing[3]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>{playerListing[4]?.name}</td>
+            <td>{playerListing[4]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+            <td>6</td>
+            <td>{playerListing[5]?.name}</td>
+            <td>{playerListing[5]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>{playerListing[6]?.name}</td>
+            <td>{playerListing[6]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+            <td>8</td>
+            <td>{playerListing[7]?.name}</td>
+            <td>{playerListing[7]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>{playerListing[8]?.name}</td>
+            <td>{playerListing[8]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+            <td>10</td>
+            <td>{playerListing[9]?.name}</td>
+            <td>{playerListing[9]?.mmr}</td>
+            <td
+              className={styles.deleteBtn}
+              onClick={onDeletePlayer}
+              align="center"
+            >
+              <ClearIcon color="error" fontSize="small" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Box>
+  );
+}
+
+export default PlayersListTable;
