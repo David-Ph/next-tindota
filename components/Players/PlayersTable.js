@@ -13,14 +13,13 @@ import _ from "lodash";
 
 function PlayersTable({ players }) {
   const [editModal, setEditModal] = useState({ show: false, data: null });
-  const [playersListing, setPlayersListing] = useState(players);
   const [sortBy, setSortBy] = useState("desc");
   const handleOpen = (data) => setEditModal({ show: true, data: data });
   const handleClose = () => setEditModal({ ...editModal, show: false });
 
   const onSortCol = (property) => {
     if (property === "winrate") {
-      const sortedPlayer = players.sort((player, nextPlayer) => {
+      players.sort((player, nextPlayer) => {
         const playerWinrate = parseInt(
           (player.totalWins / (player.totalGames ? player.totalGames : 1)) *
             100,
@@ -37,14 +36,29 @@ function PlayersTable({ players }) {
           ? playerWinrate - nextPlayerWinrate
           : nextPlayerWinrate - playerWinrate;
       });
+    } else if (property === "name") {
+      players.sort((player, nextPlayer) => {
+        const nameA = player[property].toUpperCase();
+        const nameB = nextPlayer[property].toUpperCase();
 
-      setPlayersListing(sortedPlayer);
-      setSortBy(sortBy === "desc" ? "asc" : "desc");
-      return;
+        if (nameA < nameB) {
+          return sortBy === "asc" ? 1 : -1;
+        }
+
+        if (nameB < nameA) {
+          return sortBy === "asc" ? -1 : 1;
+        }
+
+        return 0;
+      });
+    } else {
+      players.sort((player, nextPlayer) => {
+        return sortBy === "asc"
+          ? player[property] - nextPlayer[property]
+          : nextPlayer[property] - player[property];
+      });
     }
 
-    const sortedUsers = _.orderBy(playersListing, property, sortBy);
-    setPlayersListing(sortedUsers);
     setSortBy(sortBy === "desc" ? "asc" : "desc");
   };
 
@@ -86,7 +100,7 @@ function PlayersTable({ players }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {playersListing.map((row) => (
+          {players.map((row) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
