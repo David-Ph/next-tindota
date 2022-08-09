@@ -12,6 +12,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 function PlayersListTable() {
   const dispatch = useDispatch();
+  const [error, setError] = useState({ show: false, message: "" });
   const { playerListing, avgMmr } = useSelector((state) => ({
     avgMmr: state.players.avgMmr,
     playerListing: state.players.players,
@@ -21,6 +22,15 @@ function PlayersListTable() {
     if (!name) return;
 
     dispatch(playerActions.removePlayer(name));
+  };
+
+  const onShufflePlayers = () => {
+    if (playerListing.length < 10) {
+      setError({ show: true, message: "Not enough player!" });
+      return;
+    }
+
+    dispatch(playerActions.setPlayersReady(name));
   };
 
   return (
@@ -53,7 +63,7 @@ function PlayersListTable() {
             <td>{playerListing[0]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[0].name)}
+              onClick={() => onDeletePlayer(playerListing[0]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -63,7 +73,7 @@ function PlayersListTable() {
             <td>{playerListing[1]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[1].name)}
+              onClick={() => onDeletePlayer(playerListing[1]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -75,7 +85,7 @@ function PlayersListTable() {
             <td>{playerListing[2]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[2].name)}
+              onClick={() => onDeletePlayer(playerListing[2]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -85,7 +95,7 @@ function PlayersListTable() {
             <td>{playerListing[3]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[3].name)}
+              onClick={() => onDeletePlayer(playerListing[3]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -97,7 +107,7 @@ function PlayersListTable() {
             <td>{playerListing[4]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[4].name)}
+              onClick={() => onDeletePlayer(playerListing[4]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -107,7 +117,7 @@ function PlayersListTable() {
             <td>{playerListing[5]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[5].name)}
+              onClick={() => onDeletePlayer(playerListing[5]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -119,7 +129,7 @@ function PlayersListTable() {
             <td>{playerListing[6]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[6].name)}
+              onClick={() => onDeletePlayer(playerListing[6]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -129,7 +139,7 @@ function PlayersListTable() {
             <td>{playerListing[7]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[7].name)}
+              onClick={() => onDeletePlayer(playerListing[7]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -141,7 +151,7 @@ function PlayersListTable() {
             <td>{playerListing[8]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[8].name)}
+              onClick={() => onDeletePlayer(playerListing[8]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -151,7 +161,7 @@ function PlayersListTable() {
             <td>{playerListing[9]?.mmr}</td>
             <td
               className={styles.deleteBtn}
-              onClick={() => onDeletePlayer(playerListing[9].name)}
+              onClick={() => onDeletePlayer(playerListing[9]?.name)}
               align="center"
             >
               <ClearIcon color="error" fontSize="small" />
@@ -159,6 +169,24 @@ function PlayersListTable() {
           </tr>
         </tbody>
       </table>
+      <Alert
+        variant="outlined"
+        severity="error"
+        sx={{ display: error.show ? "flex" : "none" }}
+        onClose={() => {
+          setError({ ...error, show: false });
+        }}
+      >
+        {error.message}
+      </Alert>
+      <Button
+        onClick={onShufflePlayers}
+        sx={{ marginTop: "1rem" }}
+        color="info"
+        variant="contained"
+      >
+        Shuffle Players
+      </Button>
     </Box>
   );
 }
