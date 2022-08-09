@@ -60,10 +60,15 @@ const components = {
     styleOverrides: {
       root: {
         "&	.MuiTableCell-root": {
-          backgroundColor: palette.tindota.secondaryBg,
           color: palette.tindota.titleText,
           paddingTop: "0.5rem",
           paddingBottom: "0.5rem",
+        },
+        "&	.MuiTableRow-root": {
+          backgroundColor: palette.tindota.secondaryBg,
+        },
+        "&	.MuiTableRow-root:nth-of-type(odd)": {
+          backgroundColor: palette.tindota.tertiaryBg,
         },
       },
     },
