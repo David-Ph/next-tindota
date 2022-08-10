@@ -10,6 +10,17 @@ import Button from "@mui/material/Button";
 import EditPlayerModal from "./EditPlayerModal";
 import styles from "./PlayersTable.module.css";
 import _ from "lodash";
+import { getDaysFrom } from "../../util/CommonService";
+
+const getLastEditStr = (days) => {
+  if (days === "Never") return days;
+
+  if (days === 0) return "Today";
+
+  if (days === 1) return "Yesterday";
+
+  return `${days} days ago`;
+};
 
 function PlayersTable({ players }) {
   const [editModal, setEditModal] = useState({ show: false, data: null });
@@ -46,6 +57,21 @@ function PlayersTable({ players }) {
         }
 
         if (nameB < nameA) {
+          return sortBy === "asc" ? -1 : 1;
+        }
+
+        return 0;
+      });
+    } else if (property === "lastEdit") {
+      players.sort((player, nextPlayer) => {
+        const dateA = getLastEditStr(getDaysFrom(player.updatedAt));
+        const dateB = getLastEditStr(getDaysFrom(nextPlayer.updatedAt));
+
+        if (dateA < dateB) {
+          return sortBy === "asc" ? 1 : -1;
+        }
+
+        if (dateB < dateA) {
           return sortBy === "asc" ? -1 : 1;
         }
 
@@ -97,6 +123,9 @@ function PlayersTable({ players }) {
               Inhouse MMR
             </TableCell>
             <TableCell align="center">Edit</TableCell>
+            <TableCell onClick={() => onSortCol("lastEdit")}>
+              Last Edit
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -134,6 +163,9 @@ function PlayersTable({ players }) {
                 >
                   Edit
                 </Button>
+              </TableCell>
+              <TableCell>
+                {getLastEditStr(getDaysFrom(row.updatedAt))}
               </TableCell>
             </TableRow>
           ))}
