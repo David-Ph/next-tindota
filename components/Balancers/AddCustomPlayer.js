@@ -28,6 +28,11 @@ function AddCustomPlayer() {
       return;
     }
 
+    if (_.find(playerListing, ["name", nameRef.current.value])) {
+      setError({ show: true, message: "That player has been inserted!" });
+      return;
+    }
+
     const newPlayer = {
       name: nameRef.current.value,
       mmr: mmrRef.current.value,

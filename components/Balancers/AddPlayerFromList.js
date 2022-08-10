@@ -46,6 +46,11 @@ function AddPlayerFromList({ players }) {
       return;
     }
 
+    if (_.find(playerListing, ["name", findPlayer.name])) {
+      setError({ show: true, message: "That player has been inserted!" });
+      return;
+    }
+
     const newPlayer = {
       name: findPlayer.name,
       mmr: findPlayer.mmr,
