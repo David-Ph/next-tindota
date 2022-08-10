@@ -52,9 +52,9 @@ export const authOptions = {
     secret: "test",
     encryption: true,
   },
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: "/login",
+  },
 };
 
 export default NextAuth(authOptions);
