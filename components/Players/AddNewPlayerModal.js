@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import NProgress from "nprogress";
+import { callApi } from "../../util/CommonService";
 
 function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
   const router = useRouter();
@@ -28,13 +30,7 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
       realMmr,
     };
 
-    await fetch("/api/players/create", {
-      method: "POST",
-      body: JSON.stringify(playerData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await callApi("/api/players/create", "POST", JSON.stringify(playerData));
 
     newFormRef.current.reset();
     router.push("/players");

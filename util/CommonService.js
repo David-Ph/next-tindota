@@ -1,4 +1,19 @@
 import moment from "moment";
+import NProgress from "nprogress";
+
+export const callApi = async (url = "", method = "GET", body = {}) => {
+  NProgress.start();
+  const response = await fetch(url, {
+    method: method,
+    body: body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  NProgress.done();
+
+  return response;
+};
 
 export const getRandomInt = (min, max) => {
   min = Math.ceil(min);

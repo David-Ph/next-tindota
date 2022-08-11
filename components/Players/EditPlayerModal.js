@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import styles from "./EditPlayerModal.module.css";
+import { callApi } from "../../util/CommonService";
 
 function EditPlayerModal({
   open = false,
@@ -61,17 +62,15 @@ function EditPlayerModal({
       inhouseMmr,
     };
 
-    await fetch(`/api/players/${accountId}`, {
-      method: "PUT",
-      body: JSON.stringify(playerData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await callApi(
+      `/api/players/${accountId}`,
+      "PUT",
+      JSON.stringify(playerData)
+    );
 
     newFormRef.current.reset();
     router.push("/players");
-    handleClose()
+    handleClose();
   };
 
   return (

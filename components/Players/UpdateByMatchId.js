@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Alert from "@mui/material/Alert";
+import { callApi } from "../../util/CommonService";
 
 function UpdateByMatchId() {
   const router = useRouter();
@@ -19,13 +20,18 @@ function UpdateByMatchId() {
       matchId: matchId,
     };
 
-    const response = await fetch(`/api/players/updateByMatchId`, {
-      method: "PUT",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await callApi(
+      `/api/players/updateByMatchId`,
+      "PUT",
+      JSON.stringify(body)
+    );
+    // const response = await fetch(`/api/players/updateByMatchId`, {
+    //   method: "PUT",
+    //   body: JSON.stringify(body),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
     const resBody = await response.json();
 
