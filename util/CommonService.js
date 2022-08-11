@@ -15,5 +15,5 @@ export const getDaysFrom = (from) => {
 
   const a = moment(from);
   const today = moment(new Date());
-  return a.diff(today, "days");
+  return today.diff(a, "days");
 };

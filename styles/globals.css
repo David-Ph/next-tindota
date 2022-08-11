@@ -51,3 +51,18 @@ body {
 .tertiaryBg {
   color: #2d3741;
 }
+
+#nprogress .spinner {
+  top: 50%;
+  transform: translate(0, 1000%);
+}
+#nprogress .spinner-icon {
+  margin: auto;
+  width: 300px;
+  width: 50px !important;
+  height: 50px !important;
+}
+#nprogress .bar {
+  background: #0288d1 !important;
+  height: 3px !important;
+}
