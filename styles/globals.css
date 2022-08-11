@@ -52,17 +52,40 @@ body {
   color: #2d3741;
 }
 
+/* Progress bar */
 #nprogress .spinner {
-  top: 50%;
-  transform: translate(0, 1000%);
+  top: 85% !important;
+  border: solid 5px transparent;
+  border-top-color: #000301;
+  border-left-color: #ac2e15;
+  border-right-color: #000301;
+  border-bottom-color: #29d;
+  border-radius: 50%;
+  -webkit-animation: nprogress-spinner 1000ms linear infinite;
+  animation: nprogress-spinner 1000ms linear infinite;
 }
 #nprogress .spinner-icon {
   margin: auto;
-  width: 300px;
   width: 50px !important;
   height: 50px !important;
 }
 #nprogress .bar {
   background: #0288d1 !important;
   height: 3px !important;
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 0 0 30px #1c242d inset !important;
+  -webkit-box-shadow: 0 0 0 30px #1c242d inset !important;
 }
