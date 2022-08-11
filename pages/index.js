@@ -50,7 +50,7 @@ export default function index({ players }) {
           <TeamTable
             title="1 High MMR"
             type={ONE_HIGH}
-            description="Use this when there is 1 player with at least 2000 MMR higher than the 4th highest"
+            description="Use this when there is 1 player with at least 2000 MMR higher than the 2nd highest"
           ></TeamTable>
         </Box>
       </SectionContainer>

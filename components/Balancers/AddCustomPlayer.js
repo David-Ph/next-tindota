@@ -35,7 +35,7 @@ function AddCustomPlayer() {
 
     const newPlayer = {
       name: nameRef.current.value,
-      mmr: mmrRef.current.value,
+      mmr: +mmrRef.current.value,
     };
 
     dispatch(playerActions.addNewPlayer(newPlayer));
