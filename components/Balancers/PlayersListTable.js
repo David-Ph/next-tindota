@@ -199,8 +199,11 @@ function PlayersListTable() {
         <Box>
           <Button
             onClick={onClearPlayerListing}
-            sx={{ marginTop: "1rem", marginLeft: "1rem" }}
-            color="warning"
+            sx={{
+              marginTop: "1rem",
+              marginLeft: "1rem",
+              backgroundColor: "#ac2e15",
+            }}
             variant="contained"
           >
             Clear Player Listing
@@ -208,7 +211,7 @@ function PlayersListTable() {
           <Button
             onClick={onClearTeam}
             sx={{ marginTop: "1rem", marginLeft: "1rem" }}
-            color="secondary"
+            color="success"
             variant="contained"
           >
             Clear Teams
