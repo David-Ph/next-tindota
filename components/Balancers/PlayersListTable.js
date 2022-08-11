@@ -187,30 +187,34 @@ function PlayersListTable() {
       >
         {error.message}
       </Alert>
-      <Button
-        onClick={onShufflePlayers}
-        sx={{ marginTop: "1rem" }}
-        color="info"
-        variant="contained"
-      >
-        Shuffle Players
-      </Button>
-      <Button
-        onClick={onClearPlayerListing}
-        sx={{ marginTop: "1rem", marginLeft: "1rem" }}
-        color="success"
-        variant="contained"
-      >
-        Clear Player Listing
-      </Button>
-      <Button
-        onClick={onClearTeam}
-        sx={{ marginTop: "1rem", marginLeft: "1rem" }}
-        color="secondary"
-        variant="contained"
-      >
-        Clear Teams
-      </Button>
+      <Box display="flex" justifyContent={"space-between"}>
+        <Button
+          onClick={onShufflePlayers}
+          sx={{ marginTop: "1rem" }}
+          color="info"
+          variant="contained"
+        >
+          Shuffle Players
+        </Button>
+        <Box>
+          <Button
+            onClick={onClearPlayerListing}
+            sx={{ marginTop: "1rem", marginLeft: "1rem" }}
+            color="warning"
+            variant="contained"
+          >
+            Clear Player Listing
+          </Button>
+          <Button
+            onClick={onClearTeam}
+            sx={{ marginTop: "1rem", marginLeft: "1rem" }}
+            color="secondary"
+            variant="contained"
+          >
+            Clear Teams
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 }

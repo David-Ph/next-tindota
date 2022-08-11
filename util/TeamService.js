@@ -1,35 +1,48 @@
 import { getRandomInt } from "./CommonService";
+import _ from "lodash";
+
+function splitRandomTeam(data) {
+  const arr = [...data];
+  let firstTeam = [];
+  let secondTeam = [];
+
+  while (firstTeam.length < 5 && secondTeam.length < 5) {
+    const getTeam = getRandomInt(1, 2);
+    if (getTeam === 1) {
+      firstTeam.push(arr.shift());
+    } else {
+      secondTeam.push(arr.shift());
+    }
+  }
+
+  if (firstTeam.length < 5) {
+    firstTeam = firstTeam.concat(arr);
+  } else {
+    secondTeam = secondTeam.concat(arr);
+  }
+
+  return [firstTeam, secondTeam];
+}
 
 export const shufflePlayer = (playersList) => {
-  const sortedPlayers = playersList;
+  const sortedPlayers = [...playersList];
 
-  const firstTeam = [];
-  const secondTeam = [];
+  let [firstTeam, secondTeam] = splitRandomTeam(sortedPlayers);
 
-  sortedPlayers?.forEach((player, index) => {
-    const getTeam = getRandomInt(1, 2);
+  firstTeam = firstTeam.map((player) => {
+    const index = _.findIndex(sortedPlayers, ["name", player?.name]);
+    return {
+      ...player,
+      index: index + 1,
+    };
+  });
 
-    if (index % 2 === 0) {
-      getTeam === 1
-        ? firstTeam.push({
-            ...player,
-            index: index + 1,
-          })
-        : secondTeam.push({
-            ...player,
-            index: index + 1,
-          });
-    } else {
-      firstTeam.length > secondTeam.length
-        ? secondTeam.push({
-            ...player,
-            index: index + 1,
-          })
-        : firstTeam.push({
-            ...player,
-            index: index + 1,
-          });
-    }
+  secondTeam = secondTeam.map((player) => {
+    const index = _.findIndex(sortedPlayers, ["name", player?.name]);
+    return {
+      ...player,
+      index: index + 1,
+    };
   });
 
   return [firstTeam, secondTeam];
@@ -43,8 +56,8 @@ export const getNormalShuffles = (playersList) => {
   for (let i = 0; i < 100; i++) {
     const [first, second] = shufflePlayer(playersList);
     const diff = Math.abs(
-      first.reduce((a, b) => a + b.mmr, 0) / first.length -
-        second.reduce((a, b) => a + b.mmr, 0) / second.length
+      first.reduce((a, b) => a + b?.mmr, 0) / first.length -
+        second.reduce((a, b) => a + b?.mmr, 0) / second.length
     );
 
     if (diff < targetDiff) {
@@ -56,3 +69,92 @@ export const getNormalShuffles = (playersList) => {
 
   return [firstTeam, secondTeam];
 };
+
+export const getTripleHighShuffles = (playersList) => {
+  const firstTeam = [];
+  const secondTeam = [];
+
+  playersList.forEach((player, index) => {
+    if (
+      index === 0 ||
+      index === 3 ||
+      index === 5 ||
+      index === 6 ||
+      index === 9
+    ) {
+      firstTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    } else {
+      secondTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    }
+  });
+
+  return [firstTeam, secondTeam];
+};
+
+export const getOneHighShuffles = (playersList) => {
+  const firstTeam = [];
+  const secondTeam = [];
+
+  playersList.forEach((player, index) => {
+    if (
+      index === 0 ||
+      index === 3 ||
+      index === 6 ||
+      index === 7 ||
+      index === 9
+    ) {
+      firstTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    } else {
+      secondTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    }
+  });
+
+  return [firstTeam, secondTeam];
+};
+
+// export const shufflePlayer = (playersList) => {
+//   const sortedPlayers = playersList;
+
+//   const firstTeam = [];
+//   const secondTeam = [];
+
+//   sortedPlayers?.forEach((player, index) => {
+//     const getTeam = getRandomInt(1, 2);
+
+//     if (index % 2 === 0) {
+//       getTeam === 1
+//         ? firstTeam.push({
+//             ...player,
+//             index: index + 1,
+//           })
+//         : secondTeam.push({
+//             ...player,
+//             index: index + 1,
+//           });
+//     } else {
+//       firstTeam.length > secondTeam.length
+//         ? secondTeam.push({
+//             ...player,
+//             index: index + 1,
+//           })
+//         : firstTeam.push({
+//             ...player,
+//             index: index + 1,
+//           });
+//     }
+//   });
+
+//   return [firstTeam, secondTeam];
+// };

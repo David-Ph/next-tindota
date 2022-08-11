@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -5,10 +6,16 @@ import styles from "./TeamTable.module.css";
 import _ from "lodash";
 import { NORMAL_BALANCER, TRIPLE_HIGH, ONE_HIGH } from "../../util/constants";
 import { copyToClipBoard } from "../../util/CommonService";
-import { getNormalShuffles } from "../../util/TeamService";
+import {
+  getNormalShuffles,
+  getOneHighShuffles,
+  getTripleHighShuffles,
+} from "../../util/TeamService";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 function TeamTable({ type = "normal", title = "", description = "" }) {
+  const [firstTeam, setFirstTeam] = useState([]);
+  const [secondTeam, setSecondTeam] = useState([]);
   const { playerListing } = useSelector((state) => ({
     playerListing: state.players.currentPlayers,
   }));
@@ -24,61 +31,29 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
     copyString += `AVG MMR: ${avgMmr}`;
     copyToClipBoard(copyString);
   };
-
-  let firstTeam = [];
-  let secondTeam = [];
-
-  switch (type) {
-    case NORMAL_BALANCER:
-      const [first, second] = getNormalShuffles(playerListing);
-      firstTeam = first;
-      secondTeam = second;
-      break;
-    case TRIPLE_HIGH:
-      playerListing.forEach((player, index) => {
-        if (
-          index === 0 ||
-          index === 3 ||
-          index === 5 ||
-          index === 6 ||
-          index === 9
-        ) {
-          firstTeam.push({
-            ...player,
-            index: index + 1,
-          });
-        } else {
-          secondTeam.push({
-            ...player,
-            index: index + 1,
-          });
-        }
-      });
-      break;
-    case ONE_HIGH:
-      playerListing.forEach((player, index) => {
-        if (
-          index === 0 ||
-          index === 3 ||
-          index === 5 ||
-          index === 7 ||
-          index === 9
-        ) {
-          firstTeam.push({
-            ...player,
-            index: index + 1,
-          });
-        } else {
-          secondTeam.push({
-            ...player,
-            index: index + 1,
-          });
-        }
-      });
-      break;
-    default:
-      break;
-  }
+  
+  useEffect(() => {
+    switch (type) {
+      case NORMAL_BALANCER:
+        const [first, second] = getNormalShuffles(playerListing);
+        setFirstTeam(first);
+        setSecondTeam(second);
+        break;
+      case TRIPLE_HIGH:
+        const [firstTriple, secondTriple] =
+          getTripleHighShuffles(playerListing);
+        setFirstTeam(firstTriple);
+        setSecondTeam(secondTriple);
+        break;
+      case ONE_HIGH:
+        const [firstOne, secondOne] = getOneHighShuffles(playerListing);
+        setFirstTeam(firstOne);
+        setSecondTeam(secondOne);
+        break;
+      default:
+        break;
+    }
+  }, [playerListing]);
 
   const titleColor =
     type === TRIPLE_HIGH
