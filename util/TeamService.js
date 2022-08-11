@@ -6,6 +6,10 @@ function splitRandomTeam(data) {
   let firstTeam = [];
   let secondTeam = [];
 
+  // Put 1st and 2nd to two separate teams first
+  firstTeam.push(arr.shift());
+  secondTeam.push(arr.shift());
+
   while (firstTeam.length < 5 && secondTeam.length < 5) {
     const getTeam = getRandomInt(1, 2);
     if (getTeam === 1) {
