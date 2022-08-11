@@ -102,6 +102,12 @@ export const getOneHighShuffles = (playersList) => {
   const secondTeam = [];
 
   playersList.forEach((player, index) => {
+    // Possible Algorithms:
+    // 1, 4, 5, 9, 10
+    // 1, 4, 7, 8, 10
+    // 1, 2, 7, 9, 10
+    // 1, 3, 7, 8, 10
+    // Current Algorithm: 1, 4, 7, 8, 10
     if (
       index === 0 ||
       index === 3 ||
