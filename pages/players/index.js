@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,6 +13,7 @@ import PlayersTable from "../../components/Players/PlayersTable";
 import UpdateByMatchId from "../../components/Players/UpdateByMatchId";
 
 export default function index({ players }) {
+  const router = useRouter();
   const { status } = useSession();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -22,6 +24,7 @@ export default function index({ players }) {
   }
 
   if (status === "unauthenticated") {
+    router.push("/login");
     return (
       <Typography mt={8} variant={"h4"} align="center">
         Access Denied
