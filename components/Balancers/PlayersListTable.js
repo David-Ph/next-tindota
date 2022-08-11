@@ -30,7 +30,15 @@ function PlayersListTable() {
       return;
     }
 
-    dispatch(playerActions.setPlayersReady(name));
+    dispatch(playerActions.setPlayersReady());
+  };
+
+  const onClearPlayerListing = () => {
+    dispatch(playerActions.clearPlayerListing());
+  };
+
+  const onClearTeam = () => {
+    dispatch(playerActions.clearPlayersReady());
   };
 
   return (
@@ -186,6 +194,22 @@ function PlayersListTable() {
         variant="contained"
       >
         Shuffle Players
+      </Button>
+      <Button
+        onClick={onClearPlayerListing}
+        sx={{ marginTop: "1rem", marginLeft: "1rem" }}
+        color="success"
+        variant="contained"
+      >
+        Clear Player Listing
+      </Button>
+      <Button
+        onClick={onClearTeam}
+        sx={{ marginTop: "1rem", marginLeft: "1rem" }}
+        color="secondary"
+        variant="contained"
+      >
+        Clear Teams
       </Button>
     </Box>
   );

@@ -14,6 +14,12 @@ const playerSlice = createSlice({
     setPlayersReady(state, action) {
       state.currentPlayers = state.players;
     },
+    clearPlayerListing(state, action) {
+      state.players = [];
+    },
+    clearPlayersReady(state, action) {
+      state.currentPlayers = [];
+    },
     addNewPlayer(state, action) {
       state.players.push(action.payload);
       state.avgMmr = parseInt(
