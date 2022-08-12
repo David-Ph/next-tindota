@@ -4,12 +4,18 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styles from "./TeamTable.module.css";
 import _ from "lodash";
-import { NORMAL_BALANCER, TRIPLE_HIGH, ONE_HIGH } from "../../util/constants";
+import {
+  NORMAL_BALANCER,
+  TRIPLE_HIGH,
+  ONE_HIGH,
+  GARY_SHUFFLE,
+} from "../../util/constants";
 import { copyToClipBoard } from "../../util/CommonService";
 import {
   getNormalShuffles,
   getOneHighShuffles,
   getTripleHighShuffles,
+  getGaryShuffles,
 } from "../../util/TeamService";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
@@ -31,13 +37,18 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
     copyString += `AVG MMR: ${avgMmr}`;
     copyToClipBoard(copyString);
   };
-  
+
   useEffect(() => {
     switch (type) {
       case NORMAL_BALANCER:
         const [first, second] = getNormalShuffles(playerListing);
         setFirstTeam(first);
         setSecondTeam(second);
+        break;
+      case GARY_SHUFFLE:
+        const [firstClosest, secondClosest] = getGaryShuffles(playerListing);
+        setFirstTeam(firstClosest);
+        setSecondTeam(secondClosest);
         break;
       case TRIPLE_HIGH:
         const [firstTriple, secondTriple] =

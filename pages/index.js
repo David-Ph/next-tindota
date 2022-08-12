@@ -9,7 +9,12 @@ import AddCustomPlayer from "../components/Balancers/AddCustomPlayer";
 import AddPlayerFromList from "../components/Balancers/AddPlayerFromList";
 import PlayersListTable from "../components/Balancers/PlayersListTable";
 import TeamTable from "../components/Balancers/TeamTable";
-import { NORMAL_BALANCER, TRIPLE_HIGH, ONE_HIGH } from "../util/constants";
+import {
+  NORMAL_BALANCER,
+  TRIPLE_HIGH,
+  ONE_HIGH,
+  GARY_SHUFFLE,
+} from "../util/constants";
 
 export default function index({ players }) {
   const { status } = useSession();
@@ -33,10 +38,17 @@ export default function index({ players }) {
           </Grid>
         </Grid>
         <Box mt={4}>
+          <Box mt={2}>
+            <TeamTable
+              title="Normal Balancer"
+              type={GARY_SHUFFLE}
+              description="Use this whenever there is no player whose MMR is overwhelmingly higher than the rest"
+            ></TeamTable>
+          </Box>
           <TeamTable
-            title="Normal Balancer"
+            title="Alternative Balancer"
             type={NORMAL_BALANCER}
-            description="Use this whenever there is no player whose MMR is overwhelmingly higher than the rest"
+            description="Use this when you want an alternative to normal balancer."
           ></TeamTable>
         </Box>
         <Box mt={2}>

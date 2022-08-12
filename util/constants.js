@@ -9,3 +9,4 @@ export const NORMAL_MMR_CHANGES = 50;
 export const NORMAL_BALANCER = "normal";
 export const TRIPLE_HIGH = "triple-high";
 export const ONE_HIGH = "one-high";
+export const GARY_SHUFFLE = "gary-shuffle";
