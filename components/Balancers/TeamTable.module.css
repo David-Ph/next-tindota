@@ -20,6 +20,13 @@
   cursor: pointer;
 }
 
+.playerRank,
+.playerMmr {
+  width: 50px;
+}
+.playerCell {
+  width: 450px;
+}
 .playerCell:hover {
   cursor: pointer;
   transform: scale(1.025);

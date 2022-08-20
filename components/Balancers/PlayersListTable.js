@@ -66,7 +66,7 @@ function PlayersListTable() {
         <tbody>
           <tr>
             <td>1</td>
-            <td>{playerListing[0]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[0]?.name}</td>
             <td>{playerListing[0]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -80,7 +80,7 @@ function PlayersListTable() {
               />
             </td>
             <td>6</td>
-            <td>{playerListing[5]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[5]?.name}</td>
             <td>{playerListing[5]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -96,7 +96,7 @@ function PlayersListTable() {
           </tr>
           <tr>
             <td>2</td>
-            <td>{playerListing[1]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[1]?.name}</td>
             <td>{playerListing[1]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -110,7 +110,7 @@ function PlayersListTable() {
               />
             </td>
             <td>7</td>
-            <td>{playerListing[6]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[6]?.name}</td>
             <td>{playerListing[6]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -126,7 +126,7 @@ function PlayersListTable() {
           </tr>
           <tr>
             <td>3</td>
-            <td>{playerListing[2]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[2]?.name}</td>
             <td>{playerListing[2]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -140,7 +140,7 @@ function PlayersListTable() {
               />
             </td>
             <td>8</td>
-            <td>{playerListing[7]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[7]?.name}</td>
             <td>{playerListing[7]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -156,7 +156,7 @@ function PlayersListTable() {
           </tr>
           <tr>
             <td>4</td>
-            <td>{playerListing[3]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[3]?.name}</td>
             <td>{playerListing[3]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -170,7 +170,7 @@ function PlayersListTable() {
               />
             </td>
             <td>9</td>
-            <td>{playerListing[8]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[8]?.name}</td>
             <td>{playerListing[8]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -186,7 +186,7 @@ function PlayersListTable() {
           </tr>
           <tr>
             <td>5</td>
-            <td>{playerListing[4]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[4]?.name}</td>
             <td>{playerListing[4]?.mmr}</td>
             <td
               className={styles.deleteBtn}
@@ -200,7 +200,7 @@ function PlayersListTable() {
               />
             </td>
             <td>10</td>
-            <td>{playerListing[9]?.name}</td>
+            <td className={styles.playerCell}>{playerListing[9]?.name}</td>
             <td>{playerListing[9]?.mmr}</td>
             <td
               className={styles.deleteBtn}

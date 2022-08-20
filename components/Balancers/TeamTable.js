@@ -204,7 +204,7 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             <th>MMR</th>
           </tr>
           <tr>
-            <td>{firstTeam[0]?.index}</td>
+            <td className={styles.playerRank}>{firstTeam[0]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(firstTeam[0]?.name, 1, e.target)
@@ -213,8 +213,8 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {firstTeam[0]?.name}
             </td>
-            <td>{firstTeam[0]?.mmr}</td>
-            <td>{secondTeam[0]?.index}</td>
+            <td className={styles.playerMmr}>{firstTeam[0]?.mmr}</td>
+            <td className={styles.playerRank}>{secondTeam[0]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(secondTeam[0]?.name, 2, e.target)
@@ -223,10 +223,10 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {secondTeam[0]?.name}
             </td>
-            <td>{secondTeam[0]?.mmr}</td>
+            <td className={styles.playerMmr}>{secondTeam[0]?.mmr}</td>
           </tr>
           <tr>
-            <td>{firstTeam[1]?.index}</td>
+            <td className={styles.playerRank}>{firstTeam[1]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(firstTeam[1]?.name, 1, e.target)
@@ -235,8 +235,8 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {firstTeam[1]?.name}
             </td>
-            <td>{firstTeam[1]?.mmr}</td>
-            <td>{secondTeam[1]?.index}</td>
+            <td className={styles.playerMmr}>{firstTeam[1]?.mmr}</td>
+            <td className={styles.playerRank}>{secondTeam[1]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(secondTeam[1]?.name, 2, e.target)
@@ -245,10 +245,10 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {secondTeam[1]?.name}
             </td>
-            <td>{secondTeam[1]?.mmr}</td>
+            <td className={styles.playerMmr}>{secondTeam[1]?.mmr}</td>
           </tr>
           <tr>
-            <td>{firstTeam[2]?.index}</td>
+            <td className={styles.playerRank}>{firstTeam[2]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(firstTeam[2]?.name, 1, e.target)
@@ -257,8 +257,8 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {firstTeam[2]?.name}
             </td>
-            <td>{firstTeam[2]?.mmr}</td>
-            <td>{secondTeam[2]?.index}</td>
+            <td className={styles.playerMmr}>{firstTeam[2]?.mmr}</td>
+            <td className={styles.playerRank}>{secondTeam[2]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(secondTeam[2]?.name, 2, e.target)
@@ -267,10 +267,10 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {secondTeam[2]?.name}
             </td>
-            <td>{secondTeam[2]?.mmr}</td>
+            <td className={styles.playerMmr}>{secondTeam[2]?.mmr}</td>
           </tr>
           <tr>
-            <td>{firstTeam[3]?.index}</td>
+            <td className={styles.playerRank}>{firstTeam[3]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(firstTeam[3]?.name, 1, e.target)
@@ -279,8 +279,8 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {firstTeam[3]?.name}
             </td>
-            <td>{firstTeam[3]?.mmr}</td>
-            <td>{secondTeam[3]?.index}</td>
+            <td className={styles.playerMmr}>{firstTeam[3]?.mmr}</td>
+            <td className={styles.playerRank}>{secondTeam[3]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(secondTeam[3]?.name, 2, e.target)
@@ -289,10 +289,10 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {secondTeam[3]?.name}
             </td>
-            <td>{secondTeam[3]?.mmr}</td>
+            <td className={styles.playerMmr}>{secondTeam[3]?.mmr}</td>
           </tr>
           <tr>
-            <td>{firstTeam[4]?.index}</td>
+            <td className={styles.playerRank}>{firstTeam[4]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(firstTeam[4]?.name, 1, e.target)
@@ -301,8 +301,8 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {firstTeam[4]?.name}
             </td>
-            <td>{firstTeam[4]?.mmr}</td>
-            <td>{secondTeam[4]?.index}</td>
+            <td className={styles.playerMmr}>{firstTeam[4]?.mmr}</td>
+            <td className={styles.playerRank}>{secondTeam[4]?.index}</td>
             <td
               onClick={(e) =>
                 onPlayerCellClick(secondTeam[4]?.name, 2, e.target)
@@ -311,7 +311,7 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
             >
               {secondTeam[4]?.name}
             </td>
-            <td>{secondTeam[4]?.mmr}</td>
+            <td className={styles.playerMmr}>{secondTeam[4]?.mmr}</td>
           </tr>
           <tr>
             <td
