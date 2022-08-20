@@ -92,7 +92,7 @@ function BulkUpdatePlayersModal({
     setPlayerListing(tempTeam);
   };
 
-  const onBulkUpdate = () => {
+  const onBulkUpdate = async () => {
     if (playerListing.length < 1) {
       setError({ show: true, message: "Not enough player!" });
     }
@@ -102,7 +102,21 @@ function BulkUpdatePlayersModal({
       wins: conditions,
     };
 
-    console.log(payload);
+    const response = await callApi(
+      "/api/players/bulkUpdate",
+      "PUT",
+      JSON.stringify(payload)
+    );
+
+    if (!response.ok) {
+      setError({ show: true, message: "Something went wrong!" });
+    } else {
+      setInfo({ show: true, message: "Success!" });
+    }
+
+    formRef.current.reset();
+    setPlayerListing([]);
+    router.push("/players");
   };
 
   return (
@@ -125,6 +139,16 @@ function BulkUpdatePlayersModal({
           }}
         >
           {error.message}
+        </Alert>
+        <Alert
+          variant="outlined"
+          severity="info"
+          sx={{ display: info.show ? "flex" : "none" }}
+          onClose={() => {
+            setInfo({ ...info, show: false });
+          }}
+        >
+          {info.message}
         </Alert>
         <Divider />
         <Box
