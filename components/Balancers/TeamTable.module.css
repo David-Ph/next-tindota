@@ -19,3 +19,8 @@
 .copyBtn {
   cursor: pointer;
 }
+
+.playerCell:hover {
+  background-color: #28333d;
+  cursor: pointer;
+}

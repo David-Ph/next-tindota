@@ -19,12 +19,23 @@ import {
 } from "../../util/TeamService";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
+const getPlayerByName = (name, players) => {
+  return players.find((player) => player.name === name);
+};
+
 function TeamTable({ type = "normal", title = "", description = "" }) {
+  // Team State
   const [firstTeam, setFirstTeam] = useState([]);
   const [secondTeam, setSecondTeam] = useState([]);
   const { playerListing } = useSelector((state) => ({
     playerListing: state.players.currentPlayers,
   }));
+  // Swap Player State
+  let playerToSwap = null;
+  let firstPlayerTeam = null;
+  let secondPlayerToSwap = null;
+  let secondPlayerTeam = null;
+  let selectedCell = null;
 
   const getAvgMmr = (team) => {
     return parseInt(team.reduce((a, b) => a + b.mmr, 0) / team.length || 0, 10);
@@ -36,6 +47,88 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
     team.forEach((player) => (copyString += `${player.name}, `));
     copyString += `AVG MMR: ${avgMmr}`;
     copyToClipBoard(copyString);
+  };
+
+  const onPlayerCellClick = (name, team, target) => {
+    if (!name) return;
+    if (firstTeam?.length < 1 || secondTeam?.length < 1) return;
+
+    // Set up selected cell UI
+    // Change bg color first for first player, then remove it for 2nd click
+    if (!selectedCell) {
+      target.classList.add("selected");
+      selectedCell = target;
+    } else {
+      selectedCell.classList.remove("selected");
+      selectedCell = null;
+    }
+
+    // Set the team and players
+    if (!firstPlayerTeam && !playerToSwap) {
+      firstPlayerTeam = team;
+      playerToSwap = name;
+      return;
+    } else {
+      secondPlayerTeam = team;
+      secondPlayerToSwap = name;
+    }
+
+    // reset and return if teams are the same
+    if (firstPlayerTeam === secondPlayerTeam) {
+      firstPlayerTeam = null;
+      playerToSwap = null;
+      secondPlayerTeam = null;
+      secondPlayerToSwap = null;
+      return;
+    }
+
+    // Swap players based on team
+    if (firstPlayerTeam === 1) {
+      const firstPlayer = getPlayerByName(playerToSwap, firstTeam);
+      const secondPlayer = getPlayerByName(secondPlayerToSwap, secondTeam);
+
+      const newFirstTeam = firstTeam.map((player) => {
+        if (player.name === firstPlayer.name) {
+          return secondPlayer;
+        }
+        return player;
+      });
+      const newSecondTeam = secondTeam.map((player) => {
+        if (player.name === secondPlayer.name) {
+          return firstPlayer;
+        }
+        return player;
+      });
+
+      setFirstTeam(newFirstTeam);
+      setSecondTeam(newSecondTeam);
+    } else {
+      const firstPlayer = getPlayerByName(playerToSwap, secondTeam);
+      const secondPlayer = getPlayerByName(secondPlayerToSwap, firstTeam);
+
+      const newFirstTeam = firstTeam.map((player) => {
+        if (player.name === secondPlayer.name) {
+          return firstPlayer;
+        }
+        return player;
+      });
+
+      const newSecondTeam = secondTeam.map((player) => {
+        if (player.name === firstPlayer.name) {
+          return secondPlayer;
+        }
+        return player;
+      });
+
+      setFirstTeam(newFirstTeam);
+      setSecondTeam(newSecondTeam);
+    }
+
+    // reset everything
+    firstPlayerTeam = null;
+    playerToSwap = null;
+    secondPlayerTeam = null;
+    secondPlayerToSwap = null;
   };
 
   useEffect(() => {
@@ -112,42 +205,112 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
           </tr>
           <tr>
             <td>{firstTeam[0]?.index}</td>
-            <td>{firstTeam[0]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(firstTeam[0]?.name, 1, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {firstTeam[0]?.name}
+            </td>
             <td>{firstTeam[0]?.mmr}</td>
             <td>{secondTeam[0]?.index}</td>
-            <td>{secondTeam[0]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(secondTeam[0]?.name, 2, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {secondTeam[0]?.name}
+            </td>
             <td>{secondTeam[0]?.mmr}</td>
           </tr>
           <tr>
             <td>{firstTeam[1]?.index}</td>
-            <td>{firstTeam[1]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(firstTeam[1]?.name, 1, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {firstTeam[1]?.name}
+            </td>
             <td>{firstTeam[1]?.mmr}</td>
             <td>{secondTeam[1]?.index}</td>
-            <td>{secondTeam[1]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(secondTeam[1]?.name, 2, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {secondTeam[1]?.name}
+            </td>
             <td>{secondTeam[1]?.mmr}</td>
           </tr>
           <tr>
             <td>{firstTeam[2]?.index}</td>
-            <td>{firstTeam[2]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(firstTeam[2]?.name, 1, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {firstTeam[2]?.name}
+            </td>
             <td>{firstTeam[2]?.mmr}</td>
             <td>{secondTeam[2]?.index}</td>
-            <td>{secondTeam[2]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(secondTeam[2]?.name, 2, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {secondTeam[2]?.name}
+            </td>
             <td>{secondTeam[2]?.mmr}</td>
           </tr>
           <tr>
             <td>{firstTeam[3]?.index}</td>
-            <td>{firstTeam[3]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(firstTeam[3]?.name, 1, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {firstTeam[3]?.name}
+            </td>
             <td>{firstTeam[3]?.mmr}</td>
             <td>{secondTeam[3]?.index}</td>
-            <td>{secondTeam[3]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(secondTeam[3]?.name, 2, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {secondTeam[3]?.name}
+            </td>
             <td>{secondTeam[3]?.mmr}</td>
           </tr>
           <tr>
             <td>{firstTeam[4]?.index}</td>
-            <td>{firstTeam[4]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(firstTeam[4]?.name, 1, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {firstTeam[4]?.name}
+            </td>
             <td>{firstTeam[4]?.mmr}</td>
             <td>{secondTeam[4]?.index}</td>
-            <td>{secondTeam[4]?.name}</td>
+            <td
+              onClick={(e) =>
+                onPlayerCellClick(secondTeam[4]?.name, 2, e.target)
+              }
+              className={styles.playerCell}
+            >
+              {secondTeam[4]?.name}
+            </td>
             <td>{secondTeam[4]?.mmr}</td>
           </tr>
           <tr>

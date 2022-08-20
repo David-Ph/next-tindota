@@ -31,6 +31,10 @@ body {
   visibility: hidden;
 }
 
+.selected {
+  background-color: #9f2812;
+}
+
 .primary {
   color: #9f2812;
 }
