@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import NProgress from "nprogress";
+import Alert from "@mui/material/Alert";
 import { callApi } from "../../util/CommonService";
 
 function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
@@ -16,6 +17,8 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
   const newNameRef = useRef();
   const newAccountIdRef = useRef();
   const newRealMmrRef = useRef();
+  const [error, setError] = useState({ show: false, message: "" });
+  const [info, setInfo] = useState({ show: false, message: "" });
 
   const onAddNewPlayer = async (event) => {
     event.preventDefault();
@@ -30,7 +33,17 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
       realMmr,
     };
 
-    await callApi("/api/players/create", "POST", JSON.stringify(playerData));
+    const response = await callApi(
+      "/api/players/create",
+      "POST",
+      JSON.stringify(playerData)
+    );
+
+    if (!response.ok) {
+      setError({ show: true, message: "Something went wrong!" });
+    } else {
+      setInfo({ show: true, message: "Success!" });
+    }
 
     newFormRef.current.reset();
     router.push("/players");
@@ -82,6 +95,26 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
             inputRef={newRealMmrRef}
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
+          <Alert
+            variant="outlined"
+            severity="info"
+            sx={{ display: info.show ? "flex" : "none" }}
+            onClose={() => {
+              setInfo({ ...info, show: false });
+            }}
+          >
+            {info.message}
+          </Alert>
+          <Alert
+            variant="outlined"
+            severity="error"
+            sx={{ display: error.show ? "flex" : "none" }}
+            onClose={() => {
+              setError({ ...error, show: false });
+            }}
+          >
+            {error.message}
+          </Alert>
           <Button
             sx={{ marginTop: "0.5rem" }}
             type="submit"

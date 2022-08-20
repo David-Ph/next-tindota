@@ -25,13 +25,6 @@ function UpdateByMatchId() {
       "PUT",
       JSON.stringify(body)
     );
-    // const response = await fetch(`/api/players/updateByMatchId`, {
-    //   method: "PUT",
-    //   body: JSON.stringify(body),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
 
     const resBody = await response.json();
 
