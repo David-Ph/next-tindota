@@ -59,6 +59,26 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Add New Player
         </Typography>
+        <Alert
+          variant="outlined"
+          severity="info"
+          sx={{ display: info.show ? "flex" : "none" }}
+          onClose={() => {
+            setInfo({ ...info, show: false });
+          }}
+        >
+          {info.message}
+        </Alert>
+        <Alert
+          variant="outlined"
+          severity="error"
+          sx={{ display: error.show ? "flex" : "none" }}
+          onClose={() => {
+            setError({ ...error, show: false });
+          }}
+        >
+          {error.message}
+        </Alert>
         <Divider />
         <Box
           component="form"
@@ -94,26 +114,6 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
             inputRef={newRealMmrRef}
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
-          <Alert
-            variant="outlined"
-            severity="info"
-            sx={{ display: info.show ? "flex" : "none" }}
-            onClose={() => {
-              setInfo({ ...info, show: false });
-            }}
-          >
-            {info.message}
-          </Alert>
-          <Alert
-            variant="outlined"
-            severity="error"
-            sx={{ display: error.show ? "flex" : "none" }}
-            onClose={() => {
-              setError({ ...error, show: false });
-            }}
-          >
-            {error.message}
-          </Alert>
           <Button
             sx={{ marginTop: "0.5rem" }}
             type="submit"
