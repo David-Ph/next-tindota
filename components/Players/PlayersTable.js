@@ -94,36 +94,78 @@ function PlayersTable({ players }) {
         <TableHead>
           <TableRow>
             <TableCell>Account ID</TableCell>
-            <TableCell onClick={() => onSortCol("name")}>Name</TableCell>
-            <TableCell onClick={() => onSortCol("calibrationGames")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("name")}
+            >
+              Name
+            </TableCell>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("calibrationGames")}
+            >
               Calib. Games
             </TableCell>
-            <TableCell onClick={() => onSortCol("calibrationWins")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("calibrationWins")}
+            >
               Calib. Wins
             </TableCell>
-            <TableCell onClick={() => onSortCol("calibrationLoses")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("calibrationLoses")}
+            >
               Calib. Loses
             </TableCell>
-            <TableCell onClick={() => onSortCol("calibrationMmr")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("calibrationMmr")}
+            >
               Calib. MMR
             </TableCell>
-            <TableCell onClick={() => onSortCol("realMmr")}>Real MMR</TableCell>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("realMmr")}
+            >
+              Real MMR
+            </TableCell>
 
-            <TableCell onClick={() => onSortCol("totalGames")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("totalGames")}
+            >
               Total Games
             </TableCell>
-            <TableCell onClick={() => onSortCol("totalWins")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("totalWins")}
+            >
               Total Wins
             </TableCell>
-            <TableCell onClick={() => onSortCol("totalLoses")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("totalLoses")}
+            >
               Total Loses
             </TableCell>
-            <TableCell onClick={() => onSortCol("winrate")}>Winrate</TableCell>
-            <TableCell onClick={() => onSortCol("inhouseMmr")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("winrate")}
+            >
+              Winrate
+            </TableCell>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("inhouseMmr")}
+            >
               Inhouse MMR
             </TableCell>
             <TableCell align="center">Edit</TableCell>
-            <TableCell onClick={() => onSortCol("lastEdit")}>
+            <TableCell
+              className={styles.sortable}
+              onClick={() => onSortCol("lastEdit")}
+            >
               Last Edit
             </TableCell>
           </TableRow>
