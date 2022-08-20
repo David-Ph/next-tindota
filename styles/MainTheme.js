@@ -98,6 +98,21 @@ const components = {
       },
     },
   },
+  MuiSelect: {
+    styleOverrides: {
+      outlined: {
+        color: palette.tindota.mainText,
+      },
+      icon: {
+        color: palette.tindota.mainText,
+      },
+      root: {
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: palette.tindota.mainText,
+        },
+      },
+    },
+  },
 };
 
 export default createTheme({

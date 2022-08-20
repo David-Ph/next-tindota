@@ -11,13 +11,19 @@ import styles from "./index.module.css";
 import AddNewPlayerModal from "../../components/Players/AddNewPlayerModal";
 import PlayersTable from "../../components/Players/PlayersTable";
 import UpdateByMatchId from "../../components/Players/UpdateByMatchId";
+import BulkUpdatePlayersModal from "../../components/Players/BulkUpdatePlayersModal";
 
 export default function index({ players }) {
   const router = useRouter();
   const { status } = useSession();
+  // Add New Player Modal State
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // Bulk Update Modal State
+  const [bulkUpdateOpen, setBulkUpdateOpen] = useState(false);
+  const handleBulkUpdateModalOpen = () => setBulkUpdateOpen(true);
+  const handleBulkUpdateModalClose = () => setBulkUpdateOpen(false);
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -46,6 +52,20 @@ export default function index({ players }) {
         </Box>
         <Box className={styles.updateContainer} mt={2} mb={2}>
           <UpdateByMatchId />
+        </Box>
+        <Box className={styles.updateContainer} mt={2} mb={2}>
+          <Button
+            onClick={handleBulkUpdateModalOpen}
+            variant="outlined"
+            size="medium"
+          >
+            Bulk Update Players
+          </Button>
+          <BulkUpdatePlayersModal
+            open={bulkUpdateOpen}
+            handleClose={handleBulkUpdateModalClose}
+            players={players}
+          />
         </Box>
         <Box mt={2} mb={2}>
           <PlayersTable players={players} />

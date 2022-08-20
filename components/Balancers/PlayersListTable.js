@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { playerActions } from "../../store/players/players-slice";
-import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import styles from "./PlayersListTable.module.css";
@@ -74,7 +73,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[0]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[0]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
             <td>6</td>
             <td>{playerListing[5]?.name}</td>
@@ -84,7 +87,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[5]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[5]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
           </tr>
           <tr>
@@ -96,7 +103,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[1]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[1]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
             <td>7</td>
             <td>{playerListing[6]?.name}</td>
@@ -106,7 +117,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[6]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[6]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
           </tr>
           <tr>
@@ -118,7 +133,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[2]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[2]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
             <td>8</td>
             <td>{playerListing[7]?.name}</td>
@@ -128,7 +147,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[7]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[7]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
           </tr>
           <tr>
@@ -140,7 +163,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[3]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[3]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
             <td>9</td>
             <td>{playerListing[8]?.name}</td>
@@ -150,7 +177,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[8]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[8]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
           </tr>
           <tr>
@@ -162,7 +193,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[4]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[4]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
             <td>10</td>
             <td>{playerListing[9]?.name}</td>
@@ -172,7 +207,11 @@ function PlayersListTable() {
               onClick={() => onDeletePlayer(playerListing[9]?.name)}
               align="center"
             >
-              <ClearIcon color="error" fontSize="small" />
+              <ClearIcon
+                sx={{ visibility: playerListing[9]?.name ? "visible" : "hidden" }}
+                color="error"
+                fontSize="small"
+              />
             </td>
           </tr>
         </tbody>
