@@ -90,7 +90,7 @@ function PlayersTable({ players }) {
 
   return (
     <TableContainer className={styles.tableContainer} component={Paper}>
-      <Table aria-label="simple table">
+      <Table id={styles["player-table"]}>
         <TableHead>
           <TableRow>
             <TableCell>Account ID</TableCell>

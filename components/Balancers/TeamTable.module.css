@@ -21,6 +21,7 @@
 }
 
 .playerCell:hover {
-  background-color: #28333d;
   cursor: pointer;
+  transform: scale(1.025);
+  transition: all 50ms;
 }

@@ -31,7 +31,8 @@ body {
   visibility: hidden;
 }
 
-.selected {
+.selected,
+.selected:hover {
   background-color: #9f2812;
 }
 

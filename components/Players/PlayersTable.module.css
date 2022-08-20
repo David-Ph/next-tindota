@@ -1,4 +1,4 @@
-.sortable:hover {
+#player-table th.sortable:hover {
   cursor: pointer;
   color: #9f2812;
 }
