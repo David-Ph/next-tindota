@@ -55,34 +55,35 @@ function UpdateByMatchId() {
   return (
     <Box
       component="form"
-      sx={{ display: "flex", alignItems: "center" }}
       noValidate
       ref={formRef}
       autoComplete="off"
       onSubmit={onSubmit}
     >
-      <TextField
-        name="matchId"
-        label="Match ID"
-        variant="outlined"
-        size="small"
-        margin="normal"
-        value={matchId}
-        sx={{ marginTop: "0.5rem" }}
-        onChange={(e) => setMatchId(e.target.value)}
-      />
-      <Button
-        sx={{ marginLeft: "0.5rem", marginRight: "1em" }}
-        type="submit"
-        color="info"
-        variant="contained"
-      >
-        Update MMR By Match ID
-      </Button>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <TextField
+          name="matchId"
+          label="Match ID"
+          variant="outlined"
+          size="small"
+          margin="normal"
+          value={matchId}
+          sx={{ marginTop: "0.5rem" }}
+          onChange={(e) => setMatchId(e.target.value)}
+        />
+        <Button
+          sx={{ marginLeft: "0.5rem", marginRight: "1em" }}
+          type="submit"
+          color="info"
+          variant="contained"
+        >
+          Update MMR By Match ID
+        </Button>
+      </Box>
       <Alert
         variant="outlined"
         severity="info"
-        sx={{ display: info.show ? "flex" : "none" }}
+        sx={{ display: info.show ? "flex" : "none", marginBottom: "1em" }}
         onClose={() => {
           setInfo({ ...info, show: false });
         }}
