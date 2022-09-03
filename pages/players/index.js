@@ -11,6 +11,7 @@ import styles from "./index.module.css";
 import AddNewPlayerModal from "../../components/Players/AddNewPlayerModal";
 import PlayersTable from "../../components/Players/PlayersTable";
 import UpdateByMatchId from "../../components/Players/UpdateByMatchId";
+import ResetByMatchId from "../../components/Players/ResetPlayersByMatchId";
 import BulkUpdatePlayersModal from "../../components/Players/BulkUpdatePlayersModal";
 
 export default function index({ players }) {
@@ -51,9 +52,6 @@ export default function index({ players }) {
           <AddNewPlayerModal open={open} handleClose={handleClose} />
         </Box>
         <Box className={styles.updateContainer} mt={2} mb={2}>
-          <UpdateByMatchId />
-        </Box>
-        <Box className={styles.updateContainer} mt={2} mb={2}>
           <Button
             onClick={handleBulkUpdateModalOpen}
             variant="outlined"
@@ -67,6 +65,13 @@ export default function index({ players }) {
             players={players}
           />
         </Box>
+        <Box className={styles.updateContainer} mt={2} mb={2}>
+          <UpdateByMatchId />
+        </Box>
+        <Box className={styles.updateContainer} mt={2} mb={2}>
+          <ResetByMatchId />
+        </Box>
+
         <Box mt={2} mb={2}>
           <PlayersTable players={players} />
         </Box>

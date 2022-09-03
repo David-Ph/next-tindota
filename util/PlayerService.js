@@ -67,3 +67,66 @@ export const updatePlayerMmr = async (accountId, win) => {
     accountId: accountId,
   };
 };
+
+export const resetPlayerMmr = async (accountId, win) => {
+  if (!accountId) return;
+
+  let findPlayer = await Player.findOne({
+    accountId: accountId,
+  });
+
+  if (!findPlayer)
+    return {
+      accountId: accountId,
+      player: false,
+    };
+
+  if (win) {
+    // Reset players relevent stats
+    findPlayer.totalGames--;
+    findPlayer.totalWins--;
+
+    if (
+      findPlayer.isCalibrated ||
+      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
+    ) {
+      findPlayer.inhouseMmr -= NORMAL_MMR_CHANGES;
+    } else {
+      findPlayer.calibrationGames--;
+      findPlayer.calibrationWins--;
+      findPlayer.calibrationMmr -= CALIBRATION_MMR_CHANGES;
+      findPlayer.inhouseMmr -= CALIBRATION_MMR_CHANGES;
+
+      findPlayer.isCalibrated =
+        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
+    }
+
+    await findPlayer.save();
+  } else {
+    // Reset players relevent stats
+    findPlayer.totalGames--;
+    findPlayer.totalLoses--;
+
+    if (
+      findPlayer.isCalibrated ||
+      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
+    ) {
+      findPlayer.inhouseMmr += NORMAL_MMR_CHANGES;
+    } else {
+      findPlayer.calibrationGames--;
+      findPlayer.calibrationLoses--;
+      findPlayer.calibrationMmr += CALIBRATION_MMR_CHANGES;
+      findPlayer.inhouseMmr += CALIBRATION_MMR_CHANGES;
+
+      findPlayer.isCalibrated =
+        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
+    }
+
+    await findPlayer.save();
+  }
+
+  return {
+    player: findPlayer,
+    accountId: accountId,
+  };
+};
