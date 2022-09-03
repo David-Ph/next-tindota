@@ -74,7 +74,7 @@ function ResetByMatchId() {
         <Button
           sx={{ marginLeft: "0.5rem", marginRight: "1em" }}
           type="submit"
-          color="info"
+          color="success"
           variant="contained"
         >
           Reset Match Result By Match ID
