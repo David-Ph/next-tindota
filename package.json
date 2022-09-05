@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "seed": "node seeders/index.js add",
-    "seed:remove": "node seeders remove"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
