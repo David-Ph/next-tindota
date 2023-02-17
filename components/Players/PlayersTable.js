@@ -103,7 +103,7 @@ function PlayersTable({ players }) {
   };
 
   return (
-    <TableContainer className={styles.tableContainer} component={Paper}>
+    <TableContainer id={styles.tableContainer} component={Paper}>
       <Table id={styles["player-table"]}>
         <TableHead>
           <TableRow>
