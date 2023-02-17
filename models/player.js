@@ -57,15 +57,15 @@ const playerSchema = new Schema(
       required: true,
       default: 0,
     },
+    lastGameResult: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
     streak: {
       type: Number,
       required: true,
       default: 0,
-    },
-    inOnStreak: {
-      type: Boolean,
-      required: true,
-      default: false,
     },
   },
   {

@@ -1,4 +1,29 @@
+.tableContainer {
+  max-height: 1500px;
+  background-color: #2d3741;
+}
+
 #player-table th.sortable:hover {
   cursor: pointer;
   color: #9f2812;
+}
+
+#player-table thead {
+  background-color: white;
+}
+
+#player-table th {
+  position: sticky;
+  top: 0;
+  background-color: #2d3741;
+  z-index: 99;
+  border-bottom: 1px solid white;
+}
+
+.lightStreak td{
+  color: rgb(214, 214, 1) !important;
+}
+
+.hardStreak td {
+  color: #ac2e15 !important;
 }

@@ -11,6 +11,10 @@ import EditPlayerModal from "./EditPlayerModal";
 import styles from "./PlayersTable.module.css";
 import _ from "lodash";
 import { getDaysFrom } from "../../util/CommonService";
+import {
+  STREAK_DETECTOR_LIGHT,
+  STREAK_DETECTOR_HARD,
+} from "../../util/constants";
 
 const getLastEditStr = (days) => {
   if (days === "Never") return days;
@@ -86,6 +90,16 @@ function PlayersTable({ players }) {
     }
 
     setSortBy(sortBy === "desc" ? "asc" : "desc");
+  };
+
+  const streakDetector = (streak, id) => {
+    if (streak >= STREAK_DETECTOR_HARD) {
+      return 2;
+    }
+    if (streak >= STREAK_DETECTOR_LIGHT) {
+      return 1;
+    }
+    return 0;
   };
 
   return (
@@ -174,11 +188,16 @@ function PlayersTable({ players }) {
           {players.map((row) => (
             <TableRow
               key={row.name}
+              className={
+                streakDetector(row.streak) === 2
+                  ? styles.hardStreak
+                  : streakDetector(row.streak) === 1
+                  ? styles.lightStreak
+                  : ""
+              }
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {row.accountId}
-              </TableCell>
+              <TableCell scope="row">{row.accountId}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.calibrationGames}</TableCell>
               <TableCell>{row.calibrationWins}</TableCell>
