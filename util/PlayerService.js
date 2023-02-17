@@ -18,49 +18,34 @@ export const updatePlayerMmr = async (accountId, win) => {
       player: false,
     };
 
-  if (win) {
-    // Update players relevent stats
-    findPlayer.totalGames++;
-    findPlayer.totalWins++;
+  let mmrChanges = NORMAL_MMR_CHANGES;
 
-    if (
-      findPlayer.isCalibrated ||
-      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
-    ) {
-      findPlayer.inhouseMmr += NORMAL_MMR_CHANGES;
-    } else {
-      findPlayer.calibrationGames++;
+  // Check Calibration Stats
+  if (findPlayer.calibrationGames < CALIBRATION_GAMES_TOTAL) {
+    mmrChanges = CALIBRATION_MMR_CHANGES;
+    findPlayer.calibrationGames++;
+
+    if (win) {
       findPlayer.calibrationWins++;
-      findPlayer.calibrationMmr += CALIBRATION_MMR_CHANGES;
-      findPlayer.inhouseMmr += CALIBRATION_MMR_CHANGES;
-
-      findPlayer.isCalibrated =
-        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
-    }
-
-    await findPlayer.save();
-  } else {
-    // Update players relevent stats
-    findPlayer.totalGames++;
-    findPlayer.totalLoses++;
-
-    if (
-      findPlayer.isCalibrated ||
-      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
-    ) {
-      findPlayer.inhouseMmr -= NORMAL_MMR_CHANGES;
+      findPlayer.calibrationMmr += mmrChanges;
     } else {
-      findPlayer.calibrationGames++;
       findPlayer.calibrationLoses++;
-      findPlayer.calibrationMmr -= CALIBRATION_MMR_CHANGES;
-      findPlayer.inhouseMmr -= CALIBRATION_MMR_CHANGES;
-
-      findPlayer.isCalibrated =
-        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
+      findPlayer.calibrationMmr -= mmrChanges;
     }
-
-    await findPlayer.save();
   }
+
+  // check if win
+  if (win) {
+    findPlayer.totalWins++;
+  } else {
+    findPlayer.totalLoses++;
+    mmrChanges = -Math.abs(mmrChanges);
+  }
+
+  // Update player
+  findPlayer.totalGames++;
+  findPlayer.inhouseMmr += mmrChanges;
+  await findPlayer.save();
 
   return {
     player: findPlayer,
@@ -81,52 +66,44 @@ export const resetPlayerMmr = async (accountId, win) => {
       player: false,
     };
 
-  if (win) {
-    // Reset players relevent stats
-    findPlayer.totalGames--;
-    findPlayer.totalWins--;
+  let mmrChanges = NORMAL_MMR_CHANGES;
 
-    if (
-      findPlayer.isCalibrated ||
-      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
-    ) {
-      findPlayer.inhouseMmr -= NORMAL_MMR_CHANGES;
-    } else {
-      findPlayer.calibrationGames--;
+  // Check Calibration Stats
+  if (findPlayer.calibrationGames <= CALIBRATION_GAMES_TOTAL) {
+    mmrChanges = CALIBRATION_MMR_CHANGES;
+    findPlayer.calibrationGames--;
+
+    if (win) {
       findPlayer.calibrationWins--;
-      findPlayer.calibrationMmr -= CALIBRATION_MMR_CHANGES;
-      findPlayer.inhouseMmr -= CALIBRATION_MMR_CHANGES;
-
-      findPlayer.isCalibrated =
-        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
-    }
-
-    await findPlayer.save();
-  } else {
-    // Reset players relevent stats
-    findPlayer.totalGames--;
-    findPlayer.totalLoses--;
-
-    if (
-      findPlayer.isCalibrated ||
-      findPlayer.calibrationGames >= CALIBRATION_GAMES_TOTAL
-    ) {
-      findPlayer.inhouseMmr += NORMAL_MMR_CHANGES;
+      findPlayer.calibrationMmr -= mmrChanges;
     } else {
-      findPlayer.calibrationGames--;
       findPlayer.calibrationLoses--;
-      findPlayer.calibrationMmr += CALIBRATION_MMR_CHANGES;
-      findPlayer.inhouseMmr += CALIBRATION_MMR_CHANGES;
-
-      findPlayer.isCalibrated =
-        findPlayer.calibrationGames === CALIBRATION_GAMES_TOTAL ? true : false;
+      findPlayer.calibrationMmr += mmrChanges;
     }
-
-    await findPlayer.save();
   }
+
+  // check if win
+  if (win) {
+    findPlayer.totalWins--;
+  } else {
+    findPlayer.totalLoses--;
+    mmrChanges = -Math.abs(mmrChanges);
+  }
+
+  // Update player
+  findPlayer.totalGames--;
+  findPlayer.inhouseMmr -= mmrChanges;
+  await findPlayer.save();
 
   return {
     player: findPlayer,
     accountId: accountId,
   };
 };
+//rendi
+// 14 10 4 6230 | 16 8 8 6130
+// 14 10 4 6230 | 15 7 8 6080
+
+//aeron
+// -2 0 -2 2360 | 4 0 4 4060
+// -3 0 -3 2560 | 3 0 3 4260

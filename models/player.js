@@ -57,7 +57,12 @@ const playerSchema = new Schema(
       required: true,
       default: 0,
     },
-    isCalibrated: {
+    streak: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    inOnStreak: {
       type: Boolean,
       required: true,
       default: false,
