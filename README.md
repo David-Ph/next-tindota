@@ -1,34 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## How to run it locally
 
-## Getting Started
+1. Run `npm install`
+2. Create a `.env` file
+3. Insert your own credentials
 
-First, run the development server:
+## Tools Used
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Next JS
+2. Material UI
+3. Mongoose
+4. Moment
+5. Next Auth
+6. Redux JS
+7. nProgress
+8. OpenDOTA API
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What is this app?
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+A balanced matchmaking system for a DOTA Inhouse ( A 5v5 premade game done within a community) discord server.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Organizers can choose 10 players from a list or insert custom players and shuffle it, the matchmaker will create 4 variations of 2 teams of 5 players, and organizers can choose which variation he feels will give the most fun and balanced game based on average Matchmaking Rating. If an organizer feels there's no variation he thinks is balanced, he can swap players around until he found one he likes.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Admins can insert and edit players stats. With the help OpenDOTA API, it's also possible to automatically update players matchmaking rating just by inserting a DOTA match id.
