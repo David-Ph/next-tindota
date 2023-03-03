@@ -145,75 +145,104 @@ export const getOneHighShuffles = (playersList) => {
   return [firstTeam, secondTeam];
 };
 
-// function splitRandomTeam(data) {
-//   const arr = [...data];
-//   let firstTeam = [];
-//   let secondTeam = [];
+export const getOneLowShuffles = (playersList) => {
+  const firstTeam = [];
+  const secondTeam = [];
 
-//   // Put 1st and 2nd to two separate teams first
-//   firstTeam.push(arr.shift());
-//   secondTeam.push(arr.shift());
+  playersList.forEach((player, index) => {
+    // Possible Algorithms:
+    // 1, 4, 5, 9, 10
+    // 1, 4, 7, 8, 10
+    // 1, 2, 7, 9, 10
+    // 1, 3, 7, 8, 10
+    // Current Algorithm: 1, 4, 7, 8, 10
+    if (
+      index === 0 ||
+      index === 3 ||
+      index === 6 ||
+      index === 7 ||
+      index === 9
+    ) {
+      firstTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    } else {
+      secondTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    }
+  });
 
-//   while (firstTeam.length < 5 && secondTeam.length < 5) {
-//     const getTeam = getRandomInt(1, 2);
-//     if (getTeam === 1) {
-//       firstTeam.push(arr.shift());
-//     } else {
-//       secondTeam.push(arr.shift());
-//     }
-//   }
+  return [firstTeam, secondTeam];
+};
 
-//   if (firstTeam.length < 5) {
-//     firstTeam = firstTeam.concat(arr);
-//   } else {
-//     secondTeam = secondTeam.concat(arr);
-//   }
+function splitRandomTeam(data) {
+  const arr = [...data];
+  let firstTeam = [];
+  let secondTeam = [];
 
-//   return [firstTeam, secondTeam];
-// }
+  while (firstTeam.length < 5 && secondTeam.length < 5) {
+    const getTeam = getRandomInt(1, 2);
+    if (getTeam === 1) {
+      firstTeam.push(arr.shift());
+    } else {
+      secondTeam.push(arr.shift());
+    }
+  }
 
-// export const closestMmrShuffle = (playersList) => {
-//   const sortedPlayers = [...playersList];
+  if (firstTeam.length < 5) {
+    firstTeam = firstTeam.concat(arr);
+  } else {
+    secondTeam = secondTeam.concat(arr);
+  }
 
-//   let [firstTeam, secondTeam] = splitRandomTeam(sortedPlayers);
+  return [firstTeam, secondTeam];
+}
 
-//   firstTeam = firstTeam.map((player) => {
-//     const index = _.findIndex(sortedPlayers, ["name", player?.name]);
-//     return {
-//       ...player,
-//       index: index + 1,
-//     };
-//   });
+export const sortTeamShuffle = (playersList) => {
+  const sortedPlayers = [...playersList];
 
-//   secondTeam = secondTeam.map((player) => {
-//     const index = _.findIndex(sortedPlayers, ["name", player?.name]);
-//     return {
-//       ...player,
-//       index: index + 1,
-//     };
-//   });
+  let [firstTeam, secondTeam] = splitRandomTeam(sortedPlayers);
 
-//   return [firstTeam, secondTeam];
-// };
+  firstTeam = firstTeam.map((player) => {
+    const index = _.findIndex(sortedPlayers, ["name", player?.name]);
+    return {
+      ...player,
+      index: index + 1,
+    };
+  });
 
-// export const getMmrShuffle = (playersList) => {
-//   let firstTeam = [];
-//   let secondTeam = [];
-//   let targetDiff = 750;
+  secondTeam = secondTeam.map((player) => {
+    const index = _.findIndex(sortedPlayers, ["name", player?.name]);
+    return {
+      ...player,
+      index: index + 1,
+    };
+  });
 
-//   for (let i = 0; i < 100; i++) {
-//     const [first, second] = closestMmrShuffle(playersList);
-//     const diff = Math.abs(
-//       first.reduce((a, b) => a + b?.mmr, 0) / first.length -
-//         second.reduce((a, b) => a + b?.mmr, 0) / second.length
-//     );
+  return [firstTeam, secondTeam];
+};
 
-//     if (diff < targetDiff) {
-//       targetDiff = diff;
-//       firstTeam = first;
-//       secondTeam = second;
-//     }
-//   }
+export const getClosestMmrShuffle = (playersList) => {
+  let firstTeam = [];
+  let secondTeam = [];
+  let targetDiff = 750;
 
-//   return [firstTeam, secondTeam];
-// };
+  for (let i = 0; i < 150; i++) {
+    const [first, second] = sortTeamShuffle(playersList);
+    const diff = Math.abs(
+      first.reduce((a, b) => a + b?.mmr, 0) / first.length -
+        second.reduce((a, b) => a + b?.mmr, 0) / second.length
+    );
+    console.log(targetDiff);
+    if (diff < targetDiff) {
+      targetDiff = diff;
+      firstTeam = first;
+      secondTeam = second;
+    }
+  }
+
+  return [firstTeam, secondTeam];
+};

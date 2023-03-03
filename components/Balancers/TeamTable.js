@@ -9,6 +9,7 @@ import {
   TRIPLE_HIGH,
   ONE_HIGH,
   GARY_SHUFFLE,
+  CLOSEST_MMR_SHUFFLER,
 } from "../../util/constants";
 import { copyToClipBoard } from "../../util/CommonService";
 import {
@@ -16,6 +17,7 @@ import {
   getOneHighShuffles,
   getTripleHighShuffles,
   getGaryShuffles,
+  getClosestMmrShuffle,
 } from "../../util/TeamService";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
@@ -139,9 +141,9 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
         setSecondTeam(second);
         break;
       case GARY_SHUFFLE:
-        const [firstClosest, secondClosest] = getGaryShuffles(playerListing);
-        setFirstTeam(firstClosest);
-        setSecondTeam(secondClosest);
+        const [firstGary, secondGary] = getGaryShuffles(playerListing);
+        setFirstTeam(firstGary);
+        setSecondTeam(secondGary);
         break;
       case TRIPLE_HIGH:
         const [firstTriple, secondTriple] =
@@ -153,6 +155,12 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
         const [firstOne, secondOne] = getOneHighShuffles(playerListing);
         setFirstTeam(firstOne);
         setSecondTeam(secondOne);
+        break;
+      case CLOSEST_MMR_SHUFFLER:
+        const [firstClosest, secondClosest] =
+          getClosestMmrShuffle(playerListing);
+        setFirstTeam(firstClosest);
+        setSecondTeam(secondClosest);
         break;
       default:
         break;

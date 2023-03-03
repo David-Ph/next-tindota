@@ -14,6 +14,7 @@ import {
   TRIPLE_HIGH,
   ONE_HIGH,
   GARY_SHUFFLE,
+  CLOSEST_MMR_SHUFFLER,
 } from "../util/constants";
 
 export default function index({ players }) {
@@ -38,17 +39,24 @@ export default function index({ players }) {
           </Grid>
         </Grid>
         <Box mt={4}>
-          <Box mt={2}>
-            <TeamTable
-              title="Normal Balancer"
-              type={GARY_SHUFFLE}
-              description="Use this whenever there is no player whose MMR is overwhelmingly higher than the rest"
-            ></TeamTable>
-          </Box>
           <TeamTable
-            title="Alternative Balancer"
+            title="Normal Balancer"
             type={NORMAL_BALANCER}
-            description="Use this when you want an alternative to normal balancer."
+            description="This variation puts players into pairs and shuffles them around to find the closest average MMR. It's recommended to use this when everything is normal."
+          ></TeamTable>
+        </Box>
+        <Box mt={2}>
+          <TeamTable
+            title="Closest Average MMR Balancer"
+            type={CLOSEST_MMR_SHUFFLER}
+            description="This variation finds the closest average MMR between the two teams without putting players into pairs. It's recommended to use this variation when there is one low MMR player."
+          ></TeamTable>
+        </Box>
+        <Box mt={2}>
+          <TeamTable
+            title="Gary Balancer"
+            type={GARY_SHUFFLE}
+            description="This variation rigidly sets the 1st, 4th, 5th, 8th, and 10th highest mmr in one team and the rest in the other"
           ></TeamTable>
         </Box>
         <Box mt={2}>
