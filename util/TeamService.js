@@ -236,7 +236,7 @@ export const getClosestMmrShuffle = (playersList) => {
       first.reduce((a, b) => a + b?.mmr, 0) / first.length -
         second.reduce((a, b) => a + b?.mmr, 0) / second.length
     );
-    console.log(targetDiff);
+
     if (diff < targetDiff) {
       targetDiff = diff;
       firstTeam = first;
