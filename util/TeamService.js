@@ -155,7 +155,7 @@ export const getOneLowShuffles = (playersList) => {
     // 1, 4, 7, 8, 10
     // 1, 2, 7, 9, 10
     // 1, 3, 7, 8, 10
-    // Current Algorithm: 1, 4, 7, 8, 10
+    // Current Algorithm: 1, 2, 5, 6,
     if (
       index === 0 ||
       index === 3 ||
@@ -178,7 +178,36 @@ export const getOneLowShuffles = (playersList) => {
   return [firstTeam, secondTeam];
 };
 
-function splitRandomTeam(data) {
+export const getTripleLowShuffles = (playersList) => {
+  const firstTeam = [];
+  const secondTeam = [];
+
+  playersList.forEach((player, index) => {
+    // Current Algorithm: 1, 2, 4, 8, 9
+    if (
+      index === 0 ||
+      index === 1 ||
+      index === 3 ||
+      index === 7 ||
+      index === 8
+    ) {
+      firstTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    } else {
+      secondTeam.push({
+        ...player,
+        index: index + 1,
+      });
+    }
+  });
+
+  return [firstTeam, secondTeam];
+};
+
+// ? START OF GET CLOSEST MMR BALANCE
+function splitTeamToTwo(data) {
   const arr = [...data];
   let firstTeam = [];
   let secondTeam = [];
@@ -201,10 +230,10 @@ function splitRandomTeam(data) {
   return [firstTeam, secondTeam];
 }
 
-export const sortTeamShuffle = (playersList) => {
+export const getRandomTeam = (playersList) => {
   const sortedPlayers = [...playersList];
 
-  let [firstTeam, secondTeam] = splitRandomTeam(sortedPlayers);
+  let [firstTeam, secondTeam] = splitTeamToTwo(sortedPlayers);
 
   firstTeam = firstTeam.map((player) => {
     const index = _.findIndex(sortedPlayers, ["name", player?.name]);
@@ -231,7 +260,7 @@ export const getClosestMmrShuffle = (playersList) => {
   let targetDiff = 750;
 
   for (let i = 0; i < 150; i++) {
-    const [first, second] = sortTeamShuffle(playersList);
+    const [first, second] = getRandomTeam(playersList);
     const diff = Math.abs(
       first.reduce((a, b) => a + b?.mmr, 0) / first.length -
         second.reduce((a, b) => a + b?.mmr, 0) / second.length
@@ -246,3 +275,4 @@ export const getClosestMmrShuffle = (playersList) => {
 
   return [firstTeam, secondTeam];
 };
+// ? END OF GET CLOSEST MMR BALANCE
