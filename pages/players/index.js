@@ -15,7 +15,6 @@ import ResetByMatchId from "../../components/Players/ResetPlayersByMatchId";
 import BulkUpdatePlayersModal from "../../components/Players/BulkUpdatePlayersModal";
 
 export default function index({ players }) {
-  const router = useRouter();
   const { status } = useSession();
   // Add New Player Modal State
   const [open, setOpen] = useState(false);
@@ -28,15 +27,6 @@ export default function index({ players }) {
 
   if (status === "loading") {
     return <p>Loading...</p>;
-  }
-
-  if (status === "unauthenticated") {
-    router.push("/login");
-    return (
-      <Typography mt={8} variant={"h4"} align="center">
-        Access Denied
-      </Typography>
-    );
   }
 
   return (

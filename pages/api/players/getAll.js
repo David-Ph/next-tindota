@@ -1,6 +1,5 @@
 import db from "../../../middleware/db";
 import Player from "../../../models/player";
-import { authenticated } from "../../../middleware/auth";
 
 const handler = async (req, res) => {
   if (req.method === "GET") {
@@ -18,4 +17,4 @@ const handler = async (req, res) => {
   return res.status(404).json({ message: "Method not found" });
 };
 
-export default authenticated(db(handler));
+export default db(handler);
