@@ -48,7 +48,7 @@ export const updatePlayerMmr = async (accountId, win) => {
   if (findPlayer.lastGameResult === win) {
     findPlayer.streak++;
   } else {
-    findPlayer.streak = 0;
+    findPlayer.streak = 1;
   }
   
   // Update player
