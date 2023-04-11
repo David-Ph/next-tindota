@@ -259,7 +259,7 @@ export const getClosestMmrShuffle = (playersList) => {
   let secondTeam = [];
   let targetDiff = 750;
 
-  for (let i = 0; i < 150; i++) {
+  for (let i = 0; i < 300; i++) {
     const [first, second] = getRandomTeam(playersList);
     const diff = Math.abs(
       first.reduce((a, b) => a + b?.mmr, 0) / first.length -
