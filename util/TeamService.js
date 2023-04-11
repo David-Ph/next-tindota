@@ -39,7 +39,7 @@ export const shufflePlayer = (playersList) => {
 export const getNormalShuffles = (playersList) => {
   let firstTeam = [];
   let secondTeam = [];
-  let targetDiff = 750;
+  let targetDiff = 1000;
 
   for (let i = 0; i < 100; i++) {
     const [first, second] = shufflePlayer(playersList);
@@ -54,7 +54,6 @@ export const getNormalShuffles = (playersList) => {
       secondTeam = second;
     }
   }
-
   return [firstTeam, secondTeam];
 };
 
@@ -257,7 +256,7 @@ export const getRandomTeam = (playersList) => {
 export const getClosestMmrShuffle = (playersList) => {
   let firstTeam = [];
   let secondTeam = [];
-  let targetDiff = 750;
+  let targetDiff = 1000;
 
   for (let i = 0; i < 300; i++) {
     const [first, second] = getRandomTeam(playersList);
