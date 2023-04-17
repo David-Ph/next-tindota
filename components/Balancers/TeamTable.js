@@ -75,12 +75,39 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
       secondPlayerToSwap = name;
     }
 
-    // reset and return if teams are the same
+    // if teams are the same
     if (firstPlayerTeam === secondPlayerTeam) {
-      firstPlayerTeam = null;
-      playerToSwap = null;
-      secondPlayerTeam = null;
-      secondPlayerToSwap = null;
+      // firstPlayerTeam = null;
+      // playerToSwap = null;
+      // secondPlayerTeam = null;
+      // secondPlayerToSwap = null;
+      if (firstPlayerTeam === 1) {
+        const firstPlayer = getPlayerByName(playerToSwap, firstTeam);
+        const secondPlayer = getPlayerByName(secondPlayerToSwap, firstTeam);
+
+        const newFirstTeam = firstTeam.map((player) => {
+          if (player.name === firstPlayer.name) {
+            return secondPlayer;
+          } else if (player.name === secondPlayer.name) {
+            return firstPlayer;
+          }
+          return player;
+        });
+        setFirstTeam(newFirstTeam);
+      } else {
+        const firstPlayer = getPlayerByName(playerToSwap, secondTeam);
+        const secondPlayer = getPlayerByName(secondPlayerToSwap, secondTeam);
+
+        const newSecondTeam = secondTeam.map((player) => {
+          if (player.name === firstPlayer.name) {
+            return secondPlayer;
+          } else if (player.name === secondPlayer.name) {
+            return firstPlayer;
+          }
+          return player;
+        });
+        setSecondTeam(newSecondTeam);
+      }
       return;
     }
 

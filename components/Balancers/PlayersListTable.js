@@ -33,7 +33,9 @@ function PlayersListTable() {
   };
 
   const onClearPlayerListing = () => {
-    dispatch(playerActions.clearPlayerListing());
+    if (confirm("Are you sure you want to clear player listing?")) {
+      dispatch(playerActions.clearPlayerListing());
+    }
   };
 
   const onClearTeam = () => {
@@ -74,7 +76,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[0]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[0]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -88,7 +92,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[5]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[5]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -104,7 +110,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[1]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[1]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -118,7 +126,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[6]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[6]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -134,7 +144,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[2]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[2]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -148,7 +160,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[7]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[7]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -164,7 +178,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[3]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[3]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -178,7 +194,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[8]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[8]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -194,7 +212,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[4]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[4]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />
@@ -208,7 +228,9 @@ function PlayersListTable() {
               align="center"
             >
               <ClearIcon
-                sx={{ visibility: playerListing[9]?.name ? "visible" : "hidden" }}
+                sx={{
+                  visibility: playerListing[9]?.name ? "visible" : "hidden",
+                }}
                 color="error"
                 fontSize="small"
               />

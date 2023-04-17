@@ -28,3 +28,4 @@ Admins can insert and edit players stats. With the help OpenDOTA API, it's also 
 1. Add method to end player streak.
 2. Add method to mark player streak has been adjusted.
 3. Add method to remove said mark.
+4. Refactor TeamTable.js where you swap players on teams.
