@@ -24,6 +24,10 @@
   color: rgb(214, 214, 1) !important;
 }
 
-.hardStreak td {
+.loseStreak td {
   color: #ac2e15 !important;
+}
+
+.winStreak td {
+  color: #00c81b !important;
 }

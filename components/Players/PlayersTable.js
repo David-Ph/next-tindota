@@ -92,12 +92,13 @@ function PlayersTable({ players }) {
     setSortBy(sortBy === "desc" ? "asc" : "desc");
   };
 
-  const streakDetector = (streak, id) => {
-    if (streak >= STREAK_DETECTOR_HARD) {
-      return 2;
-    }
-    if (streak >= STREAK_DETECTOR_LIGHT) {
+  const streakDetector = (streak, lastGameResult) => {
+    if (streak === STREAK_DETECTOR_LIGHT) {
       return 1;
+    }
+    if (streak >= STREAK_DETECTOR_HARD) {
+      // Green if win streak, red if lose streak
+      return lastGameResult ? 2 : 3;
     }
     return 0;
   };
@@ -189,9 +190,11 @@ function PlayersTable({ players }) {
             <TableRow
               key={row.name}
               className={
-                streakDetector(row.streak) === 2
-                  ? styles.hardStreak
-                  : streakDetector(row.streak) === 1
+                streakDetector(row.streak, row.lastGameResult) === 3
+                  ? styles.loseStreak
+                  : streakDetector(row.streak, row.lastGameResult) === 2
+                  ? styles.winStreak
+                  : streakDetector(row.streak, row.lastGameResult) === 1
                   ? styles.lightStreak
                   : ""
               }
