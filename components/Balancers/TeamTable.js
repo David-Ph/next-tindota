@@ -11,7 +11,7 @@ import {
   GARY_SHUFFLE,
   CLOSEST_MMR_SHUFFLER,
 } from "../../util/constants";
-import { copyToClipBoard } from "../../util/CommonService";
+import { copyToClipBoard, shuffleArray } from "../../util/CommonService";
 import {
   getNormalShuffles,
   getOneHighShuffles,
@@ -46,7 +46,7 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
   const onCopy = (team = [], initialText = "") => {
     let copyString = initialText;
     const avgMmr = getAvgMmr(team);
-    team.forEach((player) => (copyString += `${player.name}, `));
+    shuffleArray(team).forEach((player) => (copyString += `${player.name}, `));
     copyString += `AVG MMR: ${avgMmr}`;
     copyToClipBoard(copyString);
   };
