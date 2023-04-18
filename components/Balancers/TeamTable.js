@@ -25,6 +25,37 @@ const getPlayerByName = (name, players) => {
   return players.find((player) => player.name === name);
 };
 
+const swapPlayers = (
+  firstPlayerToSwap,
+  firstTeam,
+  secondPlayerToSwap,
+  secondTeam
+) => {
+  const firstPlayer = getPlayerByName(firstPlayerToSwap, firstTeam);
+  const secondPlayer = getPlayerByName(secondPlayerToSwap, secondTeam);
+
+  const newFirstTeam = firstTeam.map((player) => {
+    if (player.name === firstPlayer.name) {
+      return secondPlayer;
+    } else if (player.name === secondPlayer.name) {
+      // also check if same team
+      return firstPlayer;
+    }
+    return player;
+  });
+  const newSecondTeam = secondTeam.map((player) => {
+    if (player.name === secondPlayer.name) {
+      return firstPlayer;
+    } else if (player.name === firstPlayer.name) {
+      // also check if same team
+      return secondPlayer;
+    }
+    return player;
+  });
+
+  return [newFirstTeam, newSecondTeam];
+};
+
 function TeamTable({ type = "normal", title = "", description = "" }) {
   // Team State
   const [firstTeam, setFirstTeam] = useState([]);
@@ -77,35 +108,21 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
 
     // if teams are the same
     if (firstPlayerTeam === secondPlayerTeam) {
-      // firstPlayerTeam = null;
-      // playerToSwap = null;
-      // secondPlayerTeam = null;
-      // secondPlayerToSwap = null;
       if (firstPlayerTeam === 1) {
-        const firstPlayer = getPlayerByName(playerToSwap, firstTeam);
-        const secondPlayer = getPlayerByName(secondPlayerToSwap, firstTeam);
-
-        const newFirstTeam = firstTeam.map((player) => {
-          if (player.name === firstPlayer.name) {
-            return secondPlayer;
-          } else if (player.name === secondPlayer.name) {
-            return firstPlayer;
-          }
-          return player;
-        });
+        const [newFirstTeam] = swapPlayers(
+          playerToSwap,
+          firstTeam,
+          secondPlayerToSwap,
+          firstTeam
+        );
         setFirstTeam(newFirstTeam);
       } else {
-        const firstPlayer = getPlayerByName(playerToSwap, secondTeam);
-        const secondPlayer = getPlayerByName(secondPlayerToSwap, secondTeam);
-
-        const newSecondTeam = secondTeam.map((player) => {
-          if (player.name === firstPlayer.name) {
-            return secondPlayer;
-          } else if (player.name === secondPlayer.name) {
-            return firstPlayer;
-          }
-          return player;
-        });
+        const [newSecondTeam] = swapPlayers(
+          playerToSwap,
+          secondTeam,
+          secondPlayerToSwap,
+          secondTeam
+        );
         setSecondTeam(newSecondTeam);
       }
       return;
@@ -113,41 +130,22 @@ function TeamTable({ type = "normal", title = "", description = "" }) {
 
     // Swap players based on team
     if (firstPlayerTeam === 1) {
-      const firstPlayer = getPlayerByName(playerToSwap, firstTeam);
-      const secondPlayer = getPlayerByName(secondPlayerToSwap, secondTeam);
-
-      const newFirstTeam = firstTeam.map((player) => {
-        if (player.name === firstPlayer.name) {
-          return secondPlayer;
-        }
-        return player;
-      });
-      const newSecondTeam = secondTeam.map((player) => {
-        if (player.name === secondPlayer.name) {
-          return firstPlayer;
-        }
-        return player;
-      });
+      const [newFirstTeam, newSecondTeam] = swapPlayers(
+        playerToSwap,
+        firstTeam,
+        secondPlayerToSwap,
+        secondTeam
+      );
 
       setFirstTeam(newFirstTeam);
       setSecondTeam(newSecondTeam);
     } else {
-      const firstPlayer = getPlayerByName(playerToSwap, secondTeam);
-      const secondPlayer = getPlayerByName(secondPlayerToSwap, firstTeam);
-
-      const newFirstTeam = firstTeam.map((player) => {
-        if (player.name === secondPlayer.name) {
-          return firstPlayer;
-        }
-        return player;
-      });
-
-      const newSecondTeam = secondTeam.map((player) => {
-        if (player.name === firstPlayer.name) {
-          return secondPlayer;
-        }
-        return player;
-      });
+      const [newFirstTeam, newSecondTeam] = swapPlayers(
+        secondPlayerToSwap,
+        firstTeam,
+        playerToSwap,
+        secondTeam
+      );
 
       setFirstTeam(newFirstTeam);
       setSecondTeam(newSecondTeam);
