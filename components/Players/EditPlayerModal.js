@@ -102,7 +102,6 @@ function EditPlayerModal({
                 label="Player Account Id"
                 variant="outlined"
                 margin="normal"
-                disabled
                 value={accountId}
               />
               <TextField
