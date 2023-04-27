@@ -39,7 +39,7 @@ function AddNewPlayerModal({ open = false, handleClose = () => {} }) {
     );
 
     if (!response.ok) {
-      setError({ show: true, message: "Something went wrong!" });
+      setError({ show: true, message: response.statusText });
     } else {
       setInfo({ show: true, message: "Success!" });
     }

@@ -68,6 +68,12 @@ function EditPlayerModal({
       JSON.stringify(playerData)
     );
 
+    if (!response.ok) {
+      setError({ show: true, message: response.statusText });
+    } else {
+      setInfo({ show: true, message: "Success!" });
+    }
+
     newFormRef.current.reset();
     router.push("/players");
     handleClose();
@@ -103,6 +109,7 @@ function EditPlayerModal({
                 variant="outlined"
                 margin="normal"
                 value={accountId}
+                disabled
               />
               <TextField
                 name="name"
