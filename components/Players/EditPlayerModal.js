@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import styles from "./EditPlayerModal.module.css";
+import Alert from "@mui/material/Alert";
 import { callApi } from "../../util/CommonService";
 
 function EditPlayerModal({
@@ -16,6 +17,8 @@ function EditPlayerModal({
 }) {
   const router = useRouter();
   const newFormRef = useRef();
+  const [error, setError] = useState({ show: false, message: "" });
+  const [info, setInfo] = useState({ show: false, message: "" });
   const [name, setName] = useState("");
   const [accountId, setAccountId] = useState("");
   const [realMmr, setRealMmr] = useState(0);
@@ -62,7 +65,7 @@ function EditPlayerModal({
       inhouseMmr,
     };
 
-    await callApi(
+    const response = await callApi(
       `/api/players/${accountId}`,
       "PUT",
       JSON.stringify(playerData)
@@ -76,7 +79,6 @@ function EditPlayerModal({
 
     newFormRef.current.reset();
     router.push("/players");
-    handleClose();
   };
 
   return (
@@ -91,6 +93,26 @@ function EditPlayerModal({
         <Typography id="modal-modal-title-edit" variant="h6" component="h2">
           Edit Player
         </Typography>
+        <Alert
+          variant="outlined"
+          severity="info"
+          sx={{ display: info.show ? "flex" : "none" }}
+          onClose={() => {
+            setInfo({ ...info, show: false });
+          }}
+        >
+          {info.message}
+        </Alert>
+        <Alert
+          variant="outlined"
+          severity="error"
+          sx={{ display: error.show ? "flex" : "none" }}
+          onClose={() => {
+            setError({ ...error, show: false });
+          }}
+        >
+          {error.message}
+        </Alert>
         <Divider />
         <Box
           component="form"

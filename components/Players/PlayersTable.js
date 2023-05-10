@@ -58,28 +58,17 @@ function PlayersTable({ players }) {
 
         if (nameA < nameB) {
           return sortBy === "asc" ? 1 : -1;
-        }
-
-        if (nameB < nameA) {
+        } else {
           return sortBy === "asc" ? -1 : 1;
         }
-
-        return 0;
       });
     } else if (property === "lastEdit") {
       players.sort((player, nextPlayer) => {
-        const dateA = getLastEditStr(getDaysFrom(player.updatedAt));
-        const dateB = getLastEditStr(getDaysFrom(nextPlayer.updatedAt));
-
-        if (dateA < dateB) {
+        if (player.updatedAt < nextPlayer.updatedAt) {
           return sortBy === "asc" ? 1 : -1;
-        }
-
-        if (dateB < dateA) {
+        } else {
           return sortBy === "asc" ? -1 : 1;
         }
-
-        return 0;
       });
     } else {
       players.sort((player, nextPlayer) => {
