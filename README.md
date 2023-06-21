@@ -1,3 +1,7 @@
+## Check out the live website.
+
+[Click here to go to live website.](https://next-tindota.vercel.app/)
+
 ## How to run it locally
 
 1. Run `npm install`
